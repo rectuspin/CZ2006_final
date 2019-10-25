@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Athletica</string>
+
+    <!--    Strings related to Login & Register Activity-->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+
+    <!--    Strings related to Home Activity -->
+    <string name="promt_search">Search Athletica</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--    Strings related to Profile Activity-->
+    <string name="bio_header">Bio</string>
+    <string name="interest_header">Interest</string>
+    <string name="coming_up_header">Coming Up</string>
+    <string name="action_edit">Update Profile</string>
+    <string name="action_follow">Follow user</string>
+
+    <!--    Strings realted to Navigation Drawer -->
+    <string name="menu_create_event">Create New Event</string>
+    <string name="menu_view_profile">View Profile</string>
+    <string name="menu_settings">Settings</string>
+
+    <!--    Strings realted to Change Password-->
+    <string name="chnage_password_header">Change Password</string>
+    <string name="prompt_old_password">Old Passsord</string>
+    <string name="prompt_new_password">New Password</string>
+    <string name="prompt_confirm_new_password">Confirm New Password</string>
+
+    <!--    String related to about-->
+    <string name="about_title">About Us</string>
+
+    <!-- Preference Titles -->
+    <string name="account_header">Account</string>
+    <string name="about_header">About</string>
+
+    <!--    Account Preferences-->
+    <string name="change_password">Change Password</string>
+    <string name="logout"> Log Out</string>
+
+    <!--    About Preferences-->
+    <string name="about">About Us</string>
+
+    <!--    Strings related to events-->
+    <string name="empty_name">Name is required!</string>
+    <string name="empty_discipline">Discipline is required!</string>
+    <string name="empty_location">Location is required!</string>
+    <string name="create_event">Create Event</string>
+
+    <!--    Google Maps API Key-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBS6ERHko-Ub-GeT_ZrTYzSqKVNoU1k5cU</string>
+
+</resources>
