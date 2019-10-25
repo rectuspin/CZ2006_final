@@ -4,56 +4,64 @@ import java.util.ArrayList;
 
 public class UserProfile {
 
+    private String id;
     private String name;
     private String gender;
     private String birthdate;
-    private String bio;
+    private String description;
+    private ArrayList<String> follows;
     private ArrayList<String> sportPreferences;
 
-    public UserProfile(String name, String gender, String birthdate, String bio) {
+    public UserProfile(String name, String gender, String description, String birthdate, ArrayList<String> sportPreferences, ArrayList<String> follows) {
         this.name = name;
         this.gender = gender;
+        this.description = description;
         this.birthdate = birthdate;
-        this.bio = bio;
+        this.sportPreferences = sportPreferences;
+        this.follows = follows;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
+    public String getDescription() {
+        return description;
     }
 
     public ArrayList<String> getSportPreferences() {
         return sportPreferences;
     }
 
+    public ArrayList<String> getFollows() {
+        return follows;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public void setSportPreferences(ArrayList<String> sportPreferences) {
         this.sportPreferences = sportPreferences;
+    }
+
+    public void setFollows(ArrayList<String> follows) {
+        this.follows = follows;
     }
 }

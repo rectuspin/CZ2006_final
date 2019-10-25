@@ -78,9 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="36dp"
-
             android:clickable="true"
             android:ems="10"
+            android:focusable="false"
             android:hint="Your date of birth"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
@@ -125,7 +125,7 @@
             android:text="Characters left 250/250"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sexRadioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

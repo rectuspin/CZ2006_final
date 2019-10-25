@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
-import com.example.athletica.data.SearchCsv;
+import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.maps.MapsActivity;
 
 import java.io.IOException;
@@ -27,6 +27,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
     private int[] images;
     private Map<String, String> data;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +42,13 @@ public class ViewFacilityActivity extends AppCompatActivity {
         tvWebsiteLink = findViewById(R.id.website);
         tvAddress = findViewById(R.id.facility_address);
 
-
+        dataManager = new DataManager();
         images = new int[]{R.raw.i0, R.raw.i1, R.raw.i2, R.raw.i3, R.raw.i4, R.raw.i5, R.raw.i6, R.raw.i7, R.raw.i8, R.raw.i9, R.raw.i10};
 
 
         //getting facility details
-        SearchCsv searchCsv = new SearchCsv(this);
         String index = getIntent().getStringExtra("index"); // gets the index passed in the previous intent from Search_Results refer to RecyclerViewAdapter.java
-        data = (Map<String, String>) searchCsv.readIndex(index); // fetched the record from the search function
+        data = (Map<String, String>) dataManager.readIndex(this, index); // fetched the record from the search function
         imageView.setImageResource(images[Integer.parseInt(index) % 11]);
         mapBtn.setImageResource(R.drawable.mapicon);
         tvFacilityName.setText(data.get("name"));

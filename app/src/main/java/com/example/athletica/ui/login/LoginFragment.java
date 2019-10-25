@@ -38,7 +38,7 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
         return view;
     }
 
-    
+
     @Override
     public void onClick(View v) {
 

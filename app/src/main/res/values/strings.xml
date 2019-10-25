@@ -34,6 +34,7 @@
     <string name="prompt_old_password">Old Passsord</string>
     <string name="prompt_new_password">New Password</string>
     <string name="prompt_confirm_new_password">Confirm New Password</string>
+    <string name="action_update_password">Update Password</string>
 
     <!--    String related to about-->
     <string name="about_title">About Us</string>

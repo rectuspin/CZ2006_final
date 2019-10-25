@@ -18,7 +18,9 @@ import com.example.athletica.ui.profile.CreateProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -115,22 +117,62 @@ public class LoginRegisterManager {
         if (firebaseUser == null) {
             return false;
         } else {
+            firebaseUser.getIdToken(true);
             setLoggedUser();
             return true;
         }
     }
 
 
-    public void saveUserProfile(String userId, String name, String birthdate, String sex, String description, ArrayList<String> sports) {
+    public void changePassword(final String password, final String confirmPassword, final String oldPassword) {
+        if (password.equals(confirmPassword)) {
+            final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+            if (user != null) {
+                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
+
+                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(context, "User re-authenticated!", Toast.LENGTH_SHORT).show();
+                        //add method for message if not authenticated
+                        if (validateLoginRegisterInput(user.getEmail(), password)) {
+
+                            user.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(context, "Passwod updated!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(context, "Password has not been updated", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+            } else {
+                Toast.makeText(context, "User is not signed in!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, LoginRegisterActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+
+        }
+    }
+
+    public void saveUserProfile(String userId, String name, String birthdate, String sex, String description, ArrayList<String> sports, ArrayList<String> follows) {
 
         if (sports.size() < 1) {
             sports.add("N/A");
         }
+        if (follows.size() < 1)
+            follows.add("N/A");
 
         ArrayList<String> emptyEventList = new ArrayList<>();
         emptyEventList.add("Nothing here yet");
-
-        UserProfile userProfile = new UserProfile(name, sex, description, birthdate);
+        UserProfile userProfile = new UserProfile(name, sex, description, birthdate, sports, follows);
 
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info");
         databaseReference.child(userId).setValue(userProfile);
