@@ -186,7 +186,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                charactersLeftTextView.setText("Characters left " + String.valueOf(250 - s.toString().length()) + "/250");
+                charactersLeftTextView.setText("Characters left " + (250 - s.toString().length()) + "/250");
             }
         });
     }

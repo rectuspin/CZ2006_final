@@ -14,20 +14,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
+import com.example.athletica.data.event.Event;
 import com.example.athletica.ui.event.CreateEventActivity;
 import com.example.athletica.ui.profile.ViewProfileActivity;
 import com.example.athletica.ui.search.SearchResultActivity;
 import com.example.athletica.ui.settings.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
-    SearchView searchView;
-    ImageButton btnMenu;
-    DrawerLayout drawer;
-    NavigationView navigationView;
+    private SearchView searchView;
+    private ImageButton btnMenu;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
+    private RecyclerView recyclerView;
+    private HomeEventRecyclerViewAdapter homeEventRecyclerViewAdapter;
+    private List<Event> eventList = new ArrayList<Event>();
 
 
     @Override
@@ -39,9 +49,12 @@ public class HomeActivity extends AppCompatActivity {
         btnMenu = findViewById(R.id.action_menu);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view_home);
+        recyclerView = findViewById(R.id.rv_home);
+
 
         setupSearchView();
         setupNavigationView();
+        setupRecyclerView();
 
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +174,26 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    // Setup the recyclerView
+    private void setupRecyclerView() {
+        homeEventRecyclerViewAdapter = new HomeEventRecyclerViewAdapter(eventList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(homeEventRecyclerViewAdapter);
+
+        loadEventData();
+
+        homeEventRecyclerViewAdapter.notifyDataSetChanged();
+
+    }
+
+
+    private void loadEventData() {
+
     }
 
 }

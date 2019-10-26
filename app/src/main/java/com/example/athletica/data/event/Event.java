@@ -72,9 +72,7 @@ public class Event {
     }
 
     public boolean canBeJoined() {
-        if (currentParticipants >= maxParticipants && maxParticipants != 0) {
-            return false;
-        } else return true;
+        return currentParticipants < maxParticipants || maxParticipants == 0;
     }
 
     public void addNewParticipant() {

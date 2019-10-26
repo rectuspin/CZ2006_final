@@ -65,11 +65,7 @@ public class User {
     }
 
     public boolean canJoin(String eventKey) {
-        if (eventsJoined.contains(eventKey)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !eventsJoined.contains(eventKey);
     }
 
     public void addEventToList(String eventKey) {

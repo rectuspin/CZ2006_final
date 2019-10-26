@@ -34,17 +34,16 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
         etEmail = view.findViewById(R.id.et_email);
         etPassword = view.findViewById(R.id.et_password);
         tvState = view.findViewById(R.id.stateTextView);
+        btnLogin = view.findViewById(R.id.action_login);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
 
         return view;
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-        if (v.getId() == R.id.action_login)
-            login();
-
     }
 
 

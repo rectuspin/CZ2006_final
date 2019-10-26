@@ -48,7 +48,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
         //getting facility details
         String index = getIntent().getStringExtra("index"); // gets the index passed in the previous intent from Search_Results refer to RecyclerViewAdapter.java
-        data = (Map<String, String>) dataManager.readIndex(this, index); // fetched the record from the search function
+        data = dataManager.readIndex(this, index); // fetched the record from the search function
         imageView.setImageResource(images[Integer.parseInt(index) % 11]);
         mapBtn.setImageResource(R.drawable.mapicon);
         tvFacilityName.setText(data.get("name"));
