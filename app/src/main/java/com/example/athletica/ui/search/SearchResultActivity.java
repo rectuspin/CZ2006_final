@@ -1,5 +1,6 @@
 package com.example.athletica.ui.search;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -47,9 +48,13 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         TextView viewAllText_events = findViewById(R.id.button2);
         viewAllText_events.setOnClickListener(this);
 
-
         dataManager = new DataManager();
-        str = getIntent().getStringExtra("search_entered");
+
+        // Get the search query from search manager
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            str = intent.getStringExtra(SearchManager.QUERY);
+        }
 
 
         getFacilities();
