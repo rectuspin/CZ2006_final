@@ -19,14 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
 import com.example.athletica.data.event.Event;
+import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.event.CreateEventActivity;
 import com.example.athletica.ui.profile.ViewProfileActivity;
+import com.example.athletica.ui.search.Layout_mainpage;
 import com.example.athletica.ui.search.SearchResultActivity;
 import com.example.athletica.ui.settings.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -39,6 +42,12 @@ public class HomeActivity extends AppCompatActivity {
     private List<Event> eventList = new ArrayList<Event>();
     private EditText etSearch;
 
+    private DataManager dataManager;
+
+    private ArrayList<Map> eventMap;
+    private ArrayList<String> eventsName = new ArrayList<String>();// unique indexes of all the records are stored in this list
+    private ArrayList<String> eventIds = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,13 @@ public class HomeActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view_home);
         recyclerView = findViewById(R.id.rv_home);
         etSearch = findViewById(R.id.editTextSearch);
+
+
+
+
+        dataManager = new DataManager();
+
+        getEvents(); //for displaying events on the main page
 
 
         setupNavigationView();
@@ -71,6 +87,9 @@ public class HomeActivity extends AppCompatActivity {
                 drawer.openDrawer(GravityCompat.END);
             }
         });
+
+
+
 
     }
 
@@ -156,6 +175,43 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+    
+    private void getEvents(){
+        dataManager.getEventKeys(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                eventMap = ((ArrayList<Map>)object);
+                EventParser(eventMap);
+            }
+        }, 4,"");
+
+    }
+
+    private void EventParser(ArrayList<Map> sample){
+        for(Map<String, String> map:sample){
+            String str1 = map.get("key");
+            String str2 = map.get("name");
+            eventIds.add(str1);
+            eventsName.add(str2);
+        }
+        initRecyclerView(1,eventsName,eventIds);
+    }
+
+    private void initRecyclerView(int id,ArrayList<String> names,ArrayList<String> index ){
+
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+
+        RecyclerView recyclerView=findViewById(R.id.rv_home);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        Layout_mainpage adapter = new Layout_mainpage(this,names,index,id);
+
+        recyclerView.setAdapter(adapter);
+
+    }
+
+
 
 
     // Setup the recyclerView
