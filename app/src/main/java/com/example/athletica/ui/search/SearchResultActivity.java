@@ -3,6 +3,7 @@ package com.example.athletica.ui.search;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         viewAllText_facilities.setOnClickListener(this);
         TextView viewAllText_events = findViewById(R.id.button2);
         viewAllText_events.setOnClickListener(this);
+        TextView viewAllText_Users=findViewById(R.id.button3);
+        viewAllText_Users.setOnClickListener(this);
 
         dataManager = new DataManager();
 
@@ -66,6 +69,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
 
     private void getFacilities() {
         facilityMap = (ArrayList<Map>) dataManager.readDataAll(this, str);
+        Log.v("running",facilityMap.toString());
         init_1(facilityMap);
     }
 
@@ -79,8 +83,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 init_2(eventMap);
             }
         }, 20, str);
-
-
     }
 
     private void getUsers() {
@@ -105,7 +107,8 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
 
     private void init_1(ArrayList<Map> sample) {
         for (Map<String, String> map : sample) {
-            String str2 = map.get("name");  //parsing facilities and index's in separate lis
+            String str2 = map.get("name");  //
+            // parsing facilities and index's in separate lis
             String i = map.get("index");
             facilityName.add(str2);
             facilityIds.add(i);
@@ -161,9 +164,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
 
             case R.id.button1:
-                facilityMap = (ArrayList<Map>) dataManager.readDataAll(this, "");
                 intent = new Intent(SearchResultActivity.this, DisplayAll.class);
-                intent.putExtra("Array_List", facilityMap);
                 intent.putExtra("state", "0");
                 startActivity(intent);
                 break;
@@ -173,6 +174,14 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 intent.putExtra("state", "1");
                 startActivity(intent);
                 break;
+
+            case R.id.button3:
+                intent = new Intent(SearchResultActivity.this, DisplayAll.class);
+                intent.putExtra("state", "2");
+                startActivity(intent);
+                break;
+
+
         }
     }
 

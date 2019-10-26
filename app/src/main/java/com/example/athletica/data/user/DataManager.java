@@ -147,7 +147,7 @@ public class DataManager {
                 ArrayList<Map> userIds = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Map<String, String> userDetails = new HashMap<>();
-                    if (data.child("name").getValue(String.class).contains(query)) {
+                    if (data.child("name").getValue(String.class).toLowerCase().contains(query.toLowerCase())) {
                         userDetails.put("key", data.getKey());
                         userDetails.put("name", data.child("name").getValue(String.class));
                         userIds.add(userDetails);
@@ -178,7 +178,7 @@ public class DataManager {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
 
-                if (tokens[3].contains(str) || tokens[4].contains(str)) {
+                if (tokens[3].toLowerCase().contains(str.toLowerCase()) || tokens[4].toLowerCase().contains(str.toLowerCase())) {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("index", tokens[0]);
                     map.put("long", tokens[1]);
@@ -194,6 +194,7 @@ public class DataManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return dataList;
     }
 
@@ -235,7 +236,5 @@ public class DataManager {
         }
         return null;
     }
-
-
 }
 

@@ -2,16 +2,18 @@ package com.example.athletica.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
+import com.example.athletica.ui.event.ViewEventActivity;
 import com.example.athletica.ui.facility.ViewFacilityActivity;
+import com.example.athletica.ui.profile.ViewProfileActivity;
 
 import java.util.ArrayList;
 
@@ -21,13 +23,13 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> index = new ArrayList<>();
     private Context mContext;
-    private int id;
+    private int state;
 
-    public Layout_mainpage(Context mContext, ArrayList<String> mNames, ArrayList<String> index, int id) {
+    public Layout_mainpage(Context mContext, ArrayList<String> mNames, ArrayList<String> index, int state) {
         this.mNames = mNames;
         this.mContext = mContext;
         this.index = index;
-        this.id = id;
+        this.state = state;
 
     }
 
@@ -40,18 +42,30 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+        Log.v("view all running",mNames.toString());
         holder.txt1.setText(mNames.get(position));
         holder.txt2.setText(String.valueOf(position));
         holder.txt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (id == 0) {
+                if (state == 0) {
                     Intent intent = new Intent(mContext, ViewFacilityActivity.class);
                     intent.putExtra("index", index.get(position));
                     mContext.startActivity(intent);
-                } else {
-                    Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_LONG).show();
                 }
+
+                else if (state==1){
+                    Intent intent = new Intent(mContext, ViewEventActivity.class);
+                    intent.putExtra("key", index.get(position));
+                    mContext.startActivity(intent);
+                }
+
+                else{
+                    Intent intent = new Intent(mContext, ViewProfileActivity.class);
+                    intent.putExtra("key", index.get(position));
+                    mContext.startActivity(intent);
+                }
+
             }
         });
     }

@@ -2,6 +2,7 @@ package com.example.athletica.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class SearchResultRecyclerViewAdapter extends RecyclerView.Adapter<Search
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
+        Log.v("recycler running ",mNames.toString());
         holder.name.setText(mNames.get(position));
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override

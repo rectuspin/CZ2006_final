@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view_home);
         recyclerView = findViewById(R.id.rv_home);
-        etSearch = findViewById(R.id.etSearch);
+        etSearch = findViewById(R.id.editTextSearch);
 
 
         setupNavigationView();
