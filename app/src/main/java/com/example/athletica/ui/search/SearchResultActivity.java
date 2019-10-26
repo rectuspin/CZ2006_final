@@ -135,9 +135,9 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         RecyclerView recyclerView;
 
 
-        if (id == 0)
+        if (id == 2)
             recyclerView = findViewById(R.id.rvUsers);
-        else if (id == 1)
+        else if (id == 0)
             recyclerView = findViewById(R.id.rvFacility);
         else
             recyclerView = findViewById(R.id.rvEvent);

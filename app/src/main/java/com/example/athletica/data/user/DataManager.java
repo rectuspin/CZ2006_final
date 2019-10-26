@@ -124,7 +124,7 @@ public class DataManager {
 
     public void getEventByKey(final DataStatus dataStatus, final String eventId) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("events_info").child(eventId);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Event event = dataSnapshot.getValue(Event.class);

@@ -14,6 +14,10 @@ public class Event {
     private int currentParticipants;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
+    public Event(){
+
+    }
+
     public Event(String name, String location, String startDate, String endDate, String description, String discipline, String createdBy, int maxParticipants, double price, int currentParticipants) {
         this.name = name;
         this.location = location;

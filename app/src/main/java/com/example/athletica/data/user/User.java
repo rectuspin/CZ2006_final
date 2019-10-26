@@ -13,6 +13,10 @@ public class User {
     private ArrayList<String> eventsJoined;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
+    public User(){
+
+    }
+
     public User(String id, UserProfile profile, ArrayList<String> followedUsers, ArrayList<String> followers) {
         this.id = id;
         this.profile = profile;
