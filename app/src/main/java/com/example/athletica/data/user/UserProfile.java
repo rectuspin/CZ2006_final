@@ -12,6 +12,10 @@ public class UserProfile {
     private ArrayList<String> follows;
     private ArrayList<String> sportPreferences;
 
+    public UserProfile() {
+
+    }
+
     public UserProfile(String name, String gender, String description, String birthdate, ArrayList<String> sportPreferences, ArrayList<String> follows) {
         this.name = name;
         this.gender = gender;
