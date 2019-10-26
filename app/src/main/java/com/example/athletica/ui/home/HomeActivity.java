@@ -1,8 +1,5 @@
 package com.example.athletica.ui.home;
 
-import android.app.SearchManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,22 +45,21 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        searchView = findViewById(R.id.action_search);
         btnMenu = findViewById(R.id.action_menu);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view_home);
         recyclerView = findViewById(R.id.rv_home);
         etSearch = findViewById(R.id.etSearch);
 
-//        setupSearchView();
+
         setupNavigationView();
         setupRecyclerView();
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 Intent intent = new Intent(HomeActivity.this, SearchResultActivity.class);
-                intent.putExtra("query", editText.getText().toString());
+                intent.putExtra("query", etSearch.getText().toString());
                 startActivity(intent);
                 return true;
             }
@@ -99,34 +94,6 @@ public class HomeActivity extends AppCompatActivity {
                 navigationView.getMenu().getItem(i).setChecked(false);
         }
 
-    }
-
-
-    // Setup the Search View
-    public void setupSearchView() {
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        searchView.setIconifiedByDefault(false);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(HomeActivity.this, SearchResultActivity.class)));
-        searchView.onActionViewCollapsed();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                // Pass the search query to SearchResultActivity to display the results
-                Intent intent = new Intent(HomeActivity.this, SearchResultActivity.class);
-                intent.putExtra("query", query);
-                startActivity(intent);
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
     }
 
 
