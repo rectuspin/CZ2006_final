@@ -1,11 +1,13 @@
 package com.example.athletica.ui.profile;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
+import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.data.profile.ProfileManager;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.data.user.UserProfile;
@@ -32,6 +34,10 @@ public class ViewProfileActivity extends AppCompatActivity {
         tvInterest = findViewById(R.id.tvUpComing);
 
         index = getIntent().getStringExtra("key");
+
+        if(TextUtils.isEmpty(index)){
+            index = LoginRegisterManager.loggedUser.getId();
+        }
         dataManager = new DataManager();
         profileManager = new ProfileManager(getApplicationContext());
         getDetails();

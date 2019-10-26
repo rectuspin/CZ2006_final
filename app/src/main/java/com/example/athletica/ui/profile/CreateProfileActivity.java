@@ -78,7 +78,6 @@ public class CreateProfileActivity extends AppCompatActivity {
         sportsListView.setAdapter(sportsArrayAdapter);
         sportsListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
-        followsArray.add("");
     }
 
     public void setUpFlipperAnimation() {

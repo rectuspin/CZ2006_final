@@ -170,6 +170,7 @@ public class LoginRegisterManager {
         if (follows.size() < 1)
             follows.add("N/A");
 
+
         ArrayList<String> emptyEventList = new ArrayList<>();
         emptyEventList.add("Nothing here yet");
         UserProfile userProfile = new UserProfile(name, sex, description, birthdate, sports, follows);
