@@ -5,10 +5,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,13 +34,14 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private SearchView searchView;
+
     private ImageButton btnMenu;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private HomeEventRecyclerViewAdapter homeEventRecyclerViewAdapter;
     private List<Event> eventList = new ArrayList<Event>();
+    private EditText etSearch;
 
 
     @Override
@@ -45,16 +49,26 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        searchView = findViewById(R.id.action_search);
+//        searchView = findViewById(R.id.action_search);
         btnMenu = findViewById(R.id.action_menu);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view_home);
         recyclerView = findViewById(R.id.rv_home);
+        etSearch = findViewById(R.id.etSearch);
 
-
-        setupSearchView();
+//        setupSearchView();
         setupNavigationView();
         setupRecyclerView();
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Intent intent = new Intent(HomeActivity.this, SearchResultActivity.class);
+                intent.putExtra("query", editText.getText().toString());
+                startActivity(intent);
+                return true;
+            }
+        });
 
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override

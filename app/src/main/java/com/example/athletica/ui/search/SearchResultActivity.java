@@ -56,6 +56,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
             str = intent.getStringExtra(SearchManager.QUERY);
         }
 
+        str = intent.getStringExtra("query");
 
         getFacilities();
         getEvents();
@@ -91,6 +92,12 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
             }
         }, str);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 
@@ -145,6 +152,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         recyclerView.setLayoutManager(layoutManager);
         SearchResultRecyclerViewAdapter adapter = new SearchResultRecyclerViewAdapter(this, names, index, id);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
