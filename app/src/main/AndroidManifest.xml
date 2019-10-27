@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.settings.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.facility.CommentAdapter"></activity>
+        <activity android:name=".ui.settings.ChangePasswordActivity" />
         <activity android:name=".ui.maps.MapsActivity" />
         <activity android:name=".ui.search.DisplayAll" />
         <activity android:name=".ui.event.ViewEventActivity" />
@@ -29,13 +30,10 @@
         <activity android:name=".ui.profile.CreateProfileActivity" />
         <activity android:name=".ui.facility.ViewFacilityActivity" />
         <activity android:name=".ui.event.CreateEventActivity" />
-        <activity android:name=".ui.search.SearchResultActivity">
-
-
-        </activity>
+        <activity android:name=".ui.search.SearchResultActivity"></activity>
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.profile.ViewProfileActivity" />
-        <activity android:name=".ui.home.HomeActivity"></activity>
+        <activity android:name=".ui.home.HomeActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

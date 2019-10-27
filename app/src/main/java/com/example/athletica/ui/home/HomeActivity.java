@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     private void getEvents(){
         dataManager.getEventKeys(new DataManager.DataStatus() {
             @Override

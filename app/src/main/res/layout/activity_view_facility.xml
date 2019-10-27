@@ -138,6 +138,79 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/comment_view_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="136dp"
+                android:layout_marginEnd="87dp"
+                android:layout_marginBottom="167dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toTopOf="@+id/facility_rating_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/facilities_offered"
+                app:layout_constraintTop_toTopOf="@+id/map_button"
+                app:layout_constraintVertical_bias="0.696" />
+
+            <TextView
+                android:id="@+id/rating_display_text_View"
+                android:layout_width="201dp"
+                android:layout_height="22dp"
+                android:text="Your rating appears here"
+                app:layout_constraintStart_toStartOf="@+id/facility_rating_bar"
+                app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar" />
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="296dp"
+                android:text="SUBMIT"
+                app:layout_constraintStart_toEndOf="@+id/facility_rating_bar"
+                app:layout_constraintTop_toBottomOf="@+id/map_button" />
+
+            <EditText
+                android:id="@+id/add_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:layout_marginStart="24dp"
+
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar"
+                tools:text="Add a comment" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="SEND"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_comment"
+                app:layout_constraintTop_toBottomOf="@+id/submit_button"
+                app:layout_constraintVertical_bias="0.978" />
+
+            <ListView
+                android:id="@+id/list_view_comment"
+                android:layout_width="180dp"
+                android:layout_height="107dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toStartOf="@+id/submit_button"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/facilities_offered"
+                app:layout_constraintTop_toBottomOf="@+id/submit_button"
+                app:layout_constraintVertical_bias="1.0" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

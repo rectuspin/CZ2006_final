@@ -88,6 +88,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 datePicker(endCalendar, etEndDate);
                 break;
             case R.id.action_create_event:
+                saveData();
+                break;
 
         }
 
