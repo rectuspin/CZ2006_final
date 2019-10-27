@@ -2,7 +2,6 @@ package com.example.athletica.ui.facility;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,13 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
-import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.data.facility.FacilityManager;
 import com.example.athletica.ui.maps.MapsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -32,7 +29,6 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
 
     private String facilityIndex;
-    String userid;
 
     private ImageView imageView, mapBtn;
     private RatingBar ratingRatingBar;
@@ -43,14 +39,17 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private FacilityManager facilityManager;
 
     private EditText addcomment;
+
+
     private Button sendComment;
     private Button submitButton;
     private TextView ratingDisplayTextView;
+
+
+
     ListView listViewComments;
     List<Comments> commentsList;
 
-    DatabaseReference Comments_DB_Reference;
-    DatabaseReference Ratings_DB_Ref;
 
 
     @Override
@@ -91,19 +90,6 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
 
 
-        userid= LoginRegisterManager.loggedUser.getId();
-
-
-        Comments_DB_Reference= FirebaseDatabase.getInstance().getReference("facility_comments");
-        Ratings_DB_Ref=FirebaseDatabase.getInstance().getReference("facility_ratings");
-
-        ListView listViewComments;
-        List<Comments> commentsList;
-
-
-       // int rating = 3; // get rating from DB
-        //ratingBar.setRating(rating);
-
 
 
 
@@ -126,6 +112,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //addRatings();
+                DatabaseReference Ratings_DB_Ref=facilityManager.getRatings_DB_Ref();
                 float submitted_rating=ratingRatingBar.getRating();
                 Ratings ratings_;
                 if(submitted_rating==5.0)
@@ -146,7 +133,11 @@ public class ViewFacilityActivity extends AppCompatActivity {
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addComments();
+                Boolean result=facilityManager.addComments(addcomment.getText().toString());
+                if(result)
+                    addcomment.setText("");
+                else
+                    Toast.makeText(ViewFacilityActivity.this, "Please type the content",Toast.LENGTH_SHORT);
             }
         });
 
@@ -155,7 +146,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        DatabaseReference Comments_DB_Reference=facilityManager.getComments_DB_Reference();
         Comments_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -176,30 +167,5 @@ public class ViewFacilityActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void addRatings(){
-
-    }
-    public void addComments(){
-        String comment_content=addcomment.getText().toString();
-        if(!TextUtils.isEmpty(comment_content)){
-            String id= Comments_DB_Reference.push().getKey();
-
-
-            Comments comments_=new Comments(userid, comment_content);
-            //Comments_DB_Reference=FirebaseDatabase.getInstance().getReference("facility_comments");
-            //Comments_DB_Reference.child(id).setValue(comments_);
-
-            Comments_DB_Reference.child(facilityIndex).child(id).setValue(comments_);
-
-            addcomment.setText("");
-
-        }
-        else{
-            Toast.makeText(ViewFacilityActivity.this, "Please type the content",Toast.LENGTH_LONG);
-        }
-
-    }
-
 
 }
