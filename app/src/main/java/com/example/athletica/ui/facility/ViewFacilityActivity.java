@@ -1,10 +1,8 @@
 package com.example.athletica.ui.facility;
 
 import android.content.Intent;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
 import com.example.athletica.data.account.LoginRegisterManager;
-import com.example.athletica.data.user.DataManager;
+import com.example.athletica.data.facility.FacilityManager;
 import com.example.athletica.ui.maps.MapsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,11 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 public class ViewFacilityActivity extends AppCompatActivity {
 
@@ -44,9 +39,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private TextView tvFacilityName, tvFacilityOffered, tvWebsiteLink, tvAddress;
 
     private int[] images;
-    private Map<String, String> data;
-    private DataManager dataManager;
 
+    private FacilityManager facilityManager;
 
     private EditText addcomment;
     private Button sendComment;
@@ -71,36 +65,34 @@ public class ViewFacilityActivity extends AppCompatActivity {
         tvFacilityOffered = findViewById(R.id.facilities_offered);
         tvWebsiteLink = findViewById(R.id.website);
         tvAddress = findViewById(R.id.facility_address);
+
+
         submitButton = (Button) findViewById(R.id.submit_button);
         ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
         listViewComments=(ListView)findViewById(R.id.list_view_comment);
+        addcomment=findViewById(R.id.add_comment);
+        sendComment=(Button)findViewById(R.id.send);
         commentsList=new ArrayList<>();
 
 
+        facilityIndex = getIntent().getStringExtra("index");
+        facilityManager=new FacilityManager(this,facilityIndex);
 
+        // setting textViews
+
+        tvFacilityName.setText(facilityManager.getName());
+        tvFacilityOffered.setText(facilityManager.getFacilities());
+        tvWebsiteLink.setText(facilityManager.getWebsite());
+        tvAddress.setText(facilityManager.getAddress());
+        images = new int[]{R.raw.i0, R.raw.i1, R.raw.i2, R.raw.i3, R.raw.i4, R.raw.i5, R.raw.i6, R.raw.i7, R.raw.i8, R.raw.i9, R.raw.i10};
+        imageView.setImageResource(images[Integer.parseInt(facilityIndex) % 11]);
+        mapBtn.setImageResource(R.drawable.mapicon);
 
 
 
 
         userid= LoginRegisterManager.loggedUser.getId();
-        dataManager = new DataManager();
-        images = new int[]{R.raw.i0, R.raw.i1, R.raw.i2, R.raw.i3, R.raw.i4, R.raw.i5, R.raw.i6, R.raw.i7, R.raw.i8, R.raw.i9, R.raw.i10};
 
-
-        //getting facility details
-        facilityIndex = getIntent().getStringExtra("index"); // gets the index passed in the previous intent from Search_Results refer to RecyclerViewAdapter.java
-        data = dataManager.readIndex(this, facilityIndex); // fetched the record from the search function
-        imageView.setImageResource(images[Integer.parseInt(facilityIndex) % 11]);
-        mapBtn.setImageResource(R.drawable.mapicon);
-        tvFacilityName.setText(data.get("name"));
-        String temp = data.get("Facilities");
-        tvFacilityOffered.setText(temp.replace("/", "  "));
-        tvWebsiteLink.setText(data.get("website"));
-
-
-
-
-        ///comments rations
 
         Comments_DB_Reference= FirebaseDatabase.getInstance().getReference("facility_comments");
         Ratings_DB_Ref=FirebaseDatabase.getInstance().getReference("facility_ratings");
@@ -113,25 +105,14 @@ public class ViewFacilityActivity extends AppCompatActivity {
         //ratingBar.setRating(rating);
 
 
-        //get address from lat long
-        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-        double lat = Double.parseDouble(data.get("lat"));
-        double lng = Double.parseDouble(data.get("long"));
-        try {
-            String addr = geocoder.getFromLocation(lat, lng, 1).get(0).getAddressLine(0);
-            tvAddress.setText(addr);
-        } catch (IOException e) {
-            Log.d("Address error", "address error");
-        }
+
 
         // Starts the MapsActivity with the facility's location data
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double lat = Double.parseDouble(data.get("lat"));
-                double lng = Double.parseDouble(data.get("long"));
-
-                Log.wtf("map running", data.get("lat") + "   " + data.get("long"));
+                double lat = facilityManager.getLat();
+                double lng = facilityManager.getLong();
 
                 Intent intent = new Intent(ViewFacilityActivity.this, MapsActivity.class);
                 intent.putExtra("lat", lat);
@@ -156,20 +137,16 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 //Ratings_DB_Ref.child(facilityIndex).setValue(ratings_);
                 Ratings_DB_Ref.child(facilityIndex).setValue(ratings_);
 
-
                 ratingDisplayTextView.setText("Your rating is :" + ratingRatingBar.getRating());
-
             }
         });
 
-        addcomment=findViewById(R.id.add_comment);
-        sendComment=(Button)findViewById(R.id.send);
+
 
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addComments();
-
             }
         });
 
