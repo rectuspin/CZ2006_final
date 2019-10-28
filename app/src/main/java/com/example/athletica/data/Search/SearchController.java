@@ -27,8 +27,6 @@ public class SearchController {
     private ArrayList<Map> userMap;
 
 
-    //Map<String,ArrayList> Tmap;
-    HashMap<String, ArrayList> Tmap;
 
     public DataManager dataManager;
 
@@ -37,7 +35,6 @@ public class SearchController {
     Context context;
 
     public SearchController(Context context, String value) {
-        this.Tmap=new HashMap<>();
         this.context=context;
         this.value=value;
         dataManager=new DataManager();
@@ -45,20 +42,15 @@ public class SearchController {
 
 
 
-    public Map<String, ArrayList> getFacilities() {
+    public void getFacilities(final SearchResultActivity searchResultActivity) {
         facilityMap = (ArrayList<Map>) dataManager.readDataAll(context, value);
-        HashMap<String, ArrayList> mMap = new HashMap<>();
-
         for (Map<String, String> map :facilityMap) {
             String str2 = map.get("name");  //
             String index = map.get("index");
             facilityName.add(str2);
             facilityIds.add(index);
         }
-        mMap.put("name", facilityName);
-        mMap.put("key", facilityIds);
-        return mMap;
-
+        searchResultActivity.initRecyclerView(facilityName,facilityIds,0);
     }
 
 
@@ -73,26 +65,32 @@ public class SearchController {
                     eventIds.add(str1);
                     eventsName.add(str2);
                 }
-                Tmap.put("names", eventsName);
-                Tmap.put("key", eventIds);
-                searchResultActivity.initRecyclerView(Tmap.get("names"),Tmap.get("key"),1);
+                searchResultActivity.initRecyclerView(eventsName,eventIds,1);
             }
         }, 20, value);
 
     }
 
-//    private Map<String, ArrayList> EventParser(ArrayList<Map> sample) {
-//        HashMap<String, ArrayList> mMap = new HashMap<>();
-//        for (Map<String, String> map : sample) {
-//            String str1 = map.get("key");
-//            String str2 = map.get("name");
-//            eventIds.add(str1);
-//            eventsName.add(str2);
-//        }
-//        mMap.put("names", eventsName);
-//        mMap.put("key", eventIds);
-//        return mMap;
-//    }
+
+    public void getUsers(final SearchResultActivity searchResultActivity) {
+        dataManager.getAllUsers(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                userMap = ((ArrayList<Map>) object);
+                for (Map<String, String> map : userMap) {
+                    String str1 = map.get("key");
+                    String str2 = map.get("name");
+                    userIds.add(str1);
+                    userName.add(str2);
+                }
+                searchResultActivity.initRecyclerView(userName, userIds, 2);
+            }
+        }, value);
+
+    }
+
+
+
 
 
 

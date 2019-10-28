@@ -55,7 +55,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         TextView viewAllText_Users=findViewById(R.id.button3);
         viewAllText_Users.setOnClickListener(this);
 
-        dataManager = new DataManager();
 
         // Get the search query from search manager
         Intent intent = getIntent();
@@ -67,52 +66,18 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         dataManager = new DataManager();
         searchController=new SearchController(this,str);
 
-        getFacilities();
 
-        event();
-
-        //getEvents();
-        getUsers();
-    }
-
-    private void event(){
+        searchController.getFacilities(this);
         searchController.getEvents(this);
-        //initRecyclerView(xMap.get("names"),xMap.get("key"),1);
-    }
-
-    public void setxMap(Map<String,ArrayList> xMap){
-        this.xMap = xMap;
-    }
-
-
-    private void getFacilities() {
-        facilityMap = (ArrayList<Map>) dataManager.readDataAll(this, str);
-        Log.v("running",facilityMap.toString());
-        init_1(facilityMap);
-    }
-
-
-    private void getEvents() {
-        dataManager.getEventKeys(new DataManager.DataStatus() {
-            @Override
-            public void dataLoaded(Object object) {
-                eventMap = ((ArrayList<Map>) object);
-                System.out.println(eventMap.size());
-                init_2(eventMap);
-            }
-        }, 20, str);
-    }
-
-    private void getUsers() {
-        dataManager.getAllUsers(new DataManager.DataStatus() {
-            @Override
-            public void dataLoaded(Object object) {
-                userMap = ((ArrayList<Map>) object);
-                init_3(userMap);
-            }
-        }, str);
+        searchController.getUsers(this);
 
     }
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -122,56 +87,20 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
 
 
     // this is used to initialize the first recycler view (to display the facilities)
-
-    private void init_1(ArrayList<Map> sample) {
-        for (Map<String, String> map : sample) {
-            String str2 = map.get("name");  //
-            // parsing facilities and index's in separate lis
-            String i = map.get("index");
-            facilityName.add(str2);
-            facilityIds.add(i);
-        }
-        initRecyclerView(facilityName, facilityIds, 0);
-    }
-
-    // this is used to initialize the first recycler view (to display the Events)
-
-    private void init_2(ArrayList<Map> sample) {
-        for (Map<String, String> map : sample) {
-            String str1 = map.get("key");
-            String str2 = map.get("name");
-            eventIds.add(str1);
-            eventsName.add(str2);
-        }
-        initRecyclerView(eventsName, eventIds, 1);
-    }
-
-
-    private void init_3(ArrayList<Map> sample) {
-        for (Map<String, String> map : sample) {
-            String str1 = map.get("key");
-            String str2 = map.get("name");
-            userIds.add(str1);
-            userName.add(str2);
-        }
-        initRecyclerView(userName, userIds, 2);
-    }
-
-
     public void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView;
 
 
-        Log.v("search recycler ","recycler");
-
-
-        if (id == 2)
-            recyclerView = findViewById(R.id.rvUsers);
-        else if (id == 0)
+        if (id == 0)
             recyclerView = findViewById(R.id.rvFacility);
-        else
+
+        else if (id == 1)
             recyclerView = findViewById(R.id.rvEvent);
+
+        else
+            recyclerView = findViewById(R.id.rvUsers);
+
 
         recyclerView.setLayoutManager(layoutManager);
         SearchResultRecyclerViewAdapter adapter = new SearchResultRecyclerViewAdapter(this, names, index, id);
