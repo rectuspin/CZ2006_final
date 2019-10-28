@@ -76,8 +76,12 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void event(){
-        xMap=searchController.getEvents();
-        initRecyclerView(xMap.get("names"),xMap.get("key"),1);
+        searchController.getEvents(this);
+        //initRecyclerView(xMap.get("names"),xMap.get("key"),1);
+    }
+
+    public void setxMap(Map<String,ArrayList> xMap){
+        this.xMap = xMap;
     }
 
 
@@ -154,7 +158,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    private void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
+    public void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView;
 

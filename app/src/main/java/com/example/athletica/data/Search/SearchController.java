@@ -3,6 +3,7 @@ package com.example.athletica.data.Search;
 import android.content.Context;
 
 import com.example.athletica.data.user.DataManager;
+import com.example.athletica.ui.search.SearchResultActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class SearchController {
     }
 
 
-    public Map<String, ArrayList> getEvents() {
+    public void getEvents(final SearchResultActivity searchResultActivity) {
         dataManager.getEventKeys(new DataManager.DataStatus() {
             @Override
             public void dataLoaded(Object object) {
@@ -74,10 +75,10 @@ public class SearchController {
                 }
                 Tmap.put("names", eventsName);
                 Tmap.put("key", eventIds);
-
+                searchResultActivity.initRecyclerView(Tmap.get("names"),Tmap.get("key"),1);
             }
         }, 20, value);
-        return Tmap;
+
     }
 
 //    private Map<String, ArrayList> EventParser(ArrayList<Map> sample) {

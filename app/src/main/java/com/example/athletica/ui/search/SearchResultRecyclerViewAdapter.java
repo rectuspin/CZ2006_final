@@ -43,7 +43,7 @@ public class SearchResultRecyclerViewAdapter extends RecyclerView.Adapter<Search
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Log.v("recycler running ",mNames.toString());
+        Log.v("recycler running ",mNames.get(position));
         holder.name.setText(mNames.get(position));
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
