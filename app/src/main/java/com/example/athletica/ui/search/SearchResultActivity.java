@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
+import com.example.athletica.data.Search.SearchController;
 import com.example.athletica.data.user.DataManager;
 
 import java.util.ArrayList;
@@ -35,8 +36,11 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     private ArrayList<Map> eventMap;
     private ArrayList<Map> userMap;
 
+    private Map<String,ArrayList> xMap;
+
     private String str;
     private DataManager dataManager;
+    private SearchController searchController;
 
 
     @Override
@@ -60,10 +64,20 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         }
 
         str = intent.getStringExtra("query");
+        dataManager = new DataManager();
+        searchController=new SearchController(this,str);
 
         getFacilities();
-        getEvents();
+
+        event();
+
+        //getEvents();
         getUsers();
+    }
+
+    private void event(){
+        xMap=searchController.getEvents();
+        initRecyclerView(xMap.get("names"),xMap.get("key"),1);
     }
 
 
