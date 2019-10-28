@@ -165,14 +165,11 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 commentsList.clear();
                 for(DataSnapshot commentsSnapshot: dataSnapshot.getChildren()){
                     Comments comment=commentsSnapshot.getValue(Comments.class);
-
                     commentsList.add(comment);
                 }
-
                 CommentAdapter adapter=new CommentAdapter(ViewFacilityActivity.this, commentsList);
                 listViewComments.setAdapter(adapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
