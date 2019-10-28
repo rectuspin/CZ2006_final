@@ -1,4 +1,4 @@
-package com.example.athletica.ui.facility;
+package com.example.athletica.data.facility;
 
 public class Ratings {
     //private String ratingID;

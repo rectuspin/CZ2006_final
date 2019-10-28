@@ -15,7 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
+import com.example.athletica.data.facility.Comments;
+import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.facility.FacilityManager;
+import com.example.athletica.data.facility.Ratings;
 import com.example.athletica.ui.maps.MapsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +28,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+/*
+This boundary class is used to display all the information corresponding to a given facility
+including comments and ratings.This activity uses the facility manager class to get the required information
+
+
+ */
+
+
 public class ViewFacilityActivity extends AppCompatActivity {
 
 
@@ -33,22 +47,18 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private ImageView imageView, mapBtn;
     private RatingBar ratingRatingBar;
     private TextView tvFacilityName, tvFacilityOffered, tvWebsiteLink, tvAddress;
-
     private int[] images;
+    private Facility facility;
 
     private FacilityManager facilityManager;
 
     private EditText addcomment;
-
-
     private Button sendComment;
     private Button submitButton;
     private TextView ratingDisplayTextView;
 
-
-
-    ListView listViewComments;
-    List<Comments> commentsList;
+    private ListView listViewComments;
+    private List<Comments> commentsList;
 
 
 
@@ -75,14 +85,16 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
 
         facilityIndex = getIntent().getStringExtra("index");
+        facility =new Facility(this,facilityIndex);
+
         facilityManager=new FacilityManager(this,facilityIndex);
 
         // setting textViews
 
-        tvFacilityName.setText(facilityManager.getName());
-        tvFacilityOffered.setText(facilityManager.getFacilities());
-        tvWebsiteLink.setText(facilityManager.getWebsite());
-        tvAddress.setText(facilityManager.getAddress());
+        tvFacilityName.setText(facility.getName());
+        tvFacilityOffered.setText(facility.getFacilities());
+        tvWebsiteLink.setText(facility.getWebsite());
+        tvAddress.setText(facility.getAddress());
         images = new int[]{R.raw.i0, R.raw.i1, R.raw.i2, R.raw.i3, R.raw.i4, R.raw.i5, R.raw.i6, R.raw.i7, R.raw.i8, R.raw.i9, R.raw.i10};
         imageView.setImageResource(images[Integer.parseInt(facilityIndex) % 11]);
         mapBtn.setImageResource(R.drawable.mapicon);
@@ -97,8 +109,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double lat = facilityManager.getLat();
-                double lng = facilityManager.getLong();
+                double lat = facility.getLat();
+                double lng = facility.getLong();
 
                 Intent intent = new Intent(ViewFacilityActivity.this, MapsActivity.class);
                 intent.putExtra("lat", lat);
@@ -112,7 +124,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //addRatings();
-                DatabaseReference Ratings_DB_Ref=facilityManager.getRatings_DB_Ref();
+                DatabaseReference Ratings_DB_Ref= facility.getRatings_DB_Ref();
                 float submitted_rating=ratingRatingBar.getRating();
                 Ratings ratings_;
                 if(submitted_rating==5.0)
@@ -133,7 +145,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean result=facilityManager.addComments(addcomment.getText().toString());
+                Boolean result= facilityManager.addComments(addcomment.getText().toString());
                 if(result)
                     addcomment.setText("");
                 else
@@ -146,7 +158,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference Comments_DB_Reference=facilityManager.getComments_DB_Reference();
+        DatabaseReference Comments_DB_Reference= facility.getComments_DB_Reference();
         Comments_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
