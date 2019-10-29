@@ -172,7 +172,6 @@ public class HomeActivity extends AppCompatActivity {
         displayController = new DisplayController(this, 1);
         displayController.getFeaturedEvents(this);
 
-
     }
 
     public void initRecyclerView(int id, ArrayList<String> names, ArrayList<String> index) {
