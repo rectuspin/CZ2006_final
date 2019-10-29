@@ -175,6 +175,7 @@
         android:backgroundTint="@android:color/darker_gray"
         android:text="Join Event"
         android:textAlignment="center"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
