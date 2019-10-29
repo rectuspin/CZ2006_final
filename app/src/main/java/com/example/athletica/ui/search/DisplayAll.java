@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
+import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class DisplayAll extends AppCompatActivity {
 
 
     private ArrayList<Map> eventMap;
-    private ArrayList<Map> facilityMap;
+    private ArrayList<Facility> facilityMap;
     private ArrayList<Map> userMap;
 
     private int state;
@@ -53,7 +54,7 @@ public class DisplayAll extends AppCompatActivity {
     }
 
     private void getFacilities(){
-        facilityMap= (ArrayList<Map>) dataManager.readDataAll(this,"");
+        facilityMap= (ArrayList<Facility>)dataManager.readDataAll(this,"");
         FacilityParser(facilityMap);
     }
 
@@ -104,10 +105,10 @@ public class DisplayAll extends AppCompatActivity {
 
 
 
-    private void FacilityParser(ArrayList<Map> sample){
-        for(Map<String, String> map:sample){
-            String str2=map.get("name");  //parsing facilities and index's in separate lists
-            String i=map.get("index");
+    private void FacilityParser(ArrayList<Facility> sample){
+        for(Facility facility:sample){
+            String str2=facility.getName();  //parsing facilities and index's in separate lists
+            String i=facility.getFacilityIndex();
             facilities.add(str2);
             index.add(i);
         }

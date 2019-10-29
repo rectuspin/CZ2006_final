@@ -2,6 +2,7 @@ package com.example.athletica.data.Search;
 
 import android.content.Context;
 
+import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.search.SearchResultActivity;
 
@@ -22,7 +23,7 @@ public class SearchController {
     private ArrayList<String> userIds = new ArrayList<>();
 
     //private ArrayList<Event> eventsList=new ArrayList<>();      // similar to facciities, details of events have to be stored, this has not been implemented yet.
-    private ArrayList<Map> facilityMap;
+    private ArrayList<Facility> facilityMap;
     private ArrayList<Map> eventMap;
     private ArrayList<Map> userMap;
 
@@ -43,10 +44,10 @@ public class SearchController {
 
 
     public void getFacilities(final SearchResultActivity searchResultActivity) {
-        facilityMap = (ArrayList<Map>) dataManager.readDataAll(context, value);
-        for (Map<String, String> map :facilityMap) {
-            String str2 = map.get("name");  //
-            String index = map.get("index");
+        facilityMap = (ArrayList<Facility>)dataManager.readDataAll(context, value);
+        for (Facility facility:facilityMap) {
+            String str2 = facility.getName();  //
+            String index = facility.getFacilityIndex();
             facilityName.add(str2);
             facilityIds.add(index);
         }

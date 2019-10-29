@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.athletica.R;
 import com.example.athletica.data.event.Event;
+import com.example.athletica.data.facility.Facility;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,7 @@ import java.util.Map;
 public class DataManager {
     private FirebaseDatabase firebaseDatabase;
     private Object object;
+    private Facility facility;
 
     public DataManager() {
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -164,9 +166,8 @@ public class DataManager {
     }
 
 
-    public List<Map> readDataAll(Context context, String str) {
-        List<Map> dataList = new ArrayList<>();
-        //int count=0;
+    public List<Facility> readDataAll(Context context, String str) {
+        List<Facility> dataList = new ArrayList<>();
         InputStream is = context.getResources().openRawResource(R.raw.sports);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
@@ -179,16 +180,8 @@ public class DataManager {
                 String[] tokens = line.split(",");
 
                 if (tokens[3].toLowerCase().contains(str.toLowerCase()) || tokens[4].toLowerCase().contains(str.toLowerCase())) {
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("index", tokens[0]);
-                    map.put("long", tokens[1]);
-                    map.put("lat", tokens[2]);
-                    map.put("name", tokens[3]);
-                    map.put("Facilities", tokens[4]);
-                    map.put("zip", tokens[5]);
-                    map.put("website", tokens[6]);
-
-                    dataList.add(map);
+                    facility=new Facility(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],tokens[6]);
+                    dataList.add(facility);
                 }
             }
         } catch (IOException e) {
@@ -199,8 +192,7 @@ public class DataManager {
     }
 
 
-    public Map<String, String> readIndex(Context context, String index) {
-        Map<String, String> data = new HashMap<>();
+    public Facility readIndex(Context context, String index) {
         InputStream is = context.getResources().openRawResource(R.raw.sports);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
@@ -218,18 +210,9 @@ public class DataManager {
 
                 if (tokens[0].equals(index)) {
 
-                    data.put("index", tokens[0]);
-                    data.put("long", tokens[1]);
-                    data.put("lat", tokens[2]);
-                    data.put("name", tokens[3]);
-                    data.put("Facilities", tokens[4]);
-                    data.put("zip", tokens[5]);
-                    data.put("website", tokens[6]);
-
-                    return data;
-
+                    facility=new Facility(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],tokens[6]);
+                    return facility;
                 }
-
             }
         } catch (IOException e) {
             Log.wtf("My activity ", "error");

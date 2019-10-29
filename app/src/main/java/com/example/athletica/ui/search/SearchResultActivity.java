@@ -21,25 +21,7 @@ import java.util.Map;
 public class SearchResultActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private ArrayList<String> facilityName = new ArrayList<>(); // names of all the facilities are stored in this list
-    private ArrayList<String> facilityIds = new ArrayList<>();
-
-    private ArrayList<String> eventsName = new ArrayList<String>();// unique indexes of all the records are stored in this list
-    private ArrayList<String> eventIds = new ArrayList<>();
-
-    private ArrayList<String> userName = new ArrayList<String>();// unique indexes of all the records are stored in this list
-    private ArrayList<String> userIds = new ArrayList<>();
-
-
-    //private ArrayList<Event> eventsList=new ArrayList<>();      // similar to facciities, details of events have to be stored, this has not been implemented yet.
-    private ArrayList<Map> facilityMap;
-    private ArrayList<Map> eventMap;
-    private ArrayList<Map> userMap;
-
-    private Map<String,ArrayList> xMap;
-
     private String str;
-    private DataManager dataManager;
     private SearchController searchController;
 
 
@@ -63,7 +45,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         }
 
         str = intent.getStringExtra("query");
-        dataManager = new DataManager();
         searchController=new SearchController(this,str);
 
 

@@ -17,53 +17,42 @@ import java.util.Map;
 public class Facility {
 
     private String facilityIndex;
-    private DataManager dataManager;
-    private Map<String,String> facility;
     Geocoder geocoder;
 
-    Context context;
 
 
     private String facilities,userid,name,website,address;
     private double lat,lng;
 
 
-
-    ListView listViewComments;
-    List<Comments> commentsList;
-
     DatabaseReference Comments_DB_Reference;
     DatabaseReference Ratings_DB_Ref;
 
 
-    public Facility(Context context, String facilityIndex){
-        dataManager=new DataManager();
-        this.context=context;
-        this.facilityIndex=facilityIndex;
-        this.facility=dataManager.readIndex(context,facilityIndex);
-        geocoder=new Geocoder(context,Locale.getDefault());
+    public Facility(String index,String lng,String lat,String name,String facilities,String zip,String website){
+
+
         this.userid= LoginRegisterManager.loggedUser.getId();
         this.Comments_DB_Reference= FirebaseDatabase.getInstance().getReference("facility_comments");
         this.Ratings_DB_Ref=FirebaseDatabase.getInstance().getReference("facility_ratings");
 
 
-        this.facilities=facility.get("Facilities").replace("/", "  ");
-        this.name=facility.get("name");
-        this.website=facility.get("website");
-        this.lat=Double.parseDouble(facility.get("lat"));
-        this.lng=Double.parseDouble(facility.get("long"));
-        try {
-            this.address=geocoder.getFromLocation(lat, lng, 1).get(0).getAddressLine(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-            this.address="";
-        }
-
+        this.facilityIndex=index;
+        this.facilities=facilities.replace("/", "  ");
+        this.name=name;
+        this.website=website;
+        this.lat=Double.parseDouble(lat);
+        this.lng=Double.parseDouble(lng);
+        this.address=zip;
 
     }
 
     public String getFacilities() {
         return facilities;
+    }
+
+    public String getFacilityIndex() {
+        return facilityIndex;
     }
 
     public String getUserid() {
@@ -94,7 +83,13 @@ public class Facility {
         return lng;
     }
 
-    public String getAddress(){
+    public String getAddress(Context context){
+        geocoder=new Geocoder(context,Locale.getDefault());
+        try {
+            return geocoder.getFromLocation(this.lat, this.lng, 1).get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return address;
     }
 

@@ -19,6 +19,7 @@ import com.example.athletica.data.facility.Comments;
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.facility.FacilityManager;
 import com.example.athletica.data.facility.Ratings;
+import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.maps.MapsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +52,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private Facility facility;
 
     private FacilityManager facilityManager;
+    private DataManager dataManager;
 
     private EditText addcomment;
     private Button sendComment;
@@ -83,9 +85,9 @@ public class ViewFacilityActivity extends AppCompatActivity {
         sendComment=(Button)findViewById(R.id.send);
         commentsList=new ArrayList<>();
 
-
+        dataManager=new DataManager();
         facilityIndex = getIntent().getStringExtra("index");
-        facility =new Facility(this,facilityIndex);
+        facility =dataManager.readIndex(this,facilityIndex);
 
         facilityManager=new FacilityManager(this,facilityIndex);
 
@@ -94,7 +96,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
         tvFacilityName.setText(facility.getName());
         tvFacilityOffered.setText(facility.getFacilities());
         tvWebsiteLink.setText(facility.getWebsite());
-        tvAddress.setText(facility.getAddress());
+        tvAddress.setText(facility.getAddress(this));
         images = new int[]{R.raw.i0, R.raw.i1, R.raw.i2, R.raw.i3, R.raw.i4, R.raw.i5, R.raw.i6, R.raw.i7, R.raw.i8, R.raw.i9, R.raw.i10};
         imageView.setImageResource(images[Integer.parseInt(facilityIndex) % 11]);
         mapBtn.setImageResource(R.drawable.mapicon);

@@ -3,16 +3,26 @@ package com.example.athletica.data.facility;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.athletica.data.user.DataManager;
 import com.google.firebase.database.DatabaseReference;
+
+
+/*
+This control class is used for running the functions corresponding to the ViewFacility Activity
+ */
+
 
 public class FacilityManager {
 
     String facilityIndex;
     Facility facility;
+    private DataManager dataManager;
 
     public FacilityManager(Context context, String facilityIndex) {
-        facility=new Facility(context,facilityIndex);
         this.facilityIndex=facilityIndex;
+        dataManager=new DataManager();
+        facility=dataManager.readIndex(context,facilityIndex);
+
     }
 
 
