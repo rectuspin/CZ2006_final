@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,6 +74,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         etStartDate.setOnClickListener(this);
         etEndDate.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
 
     }
 
@@ -183,6 +185,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         // Validates the event details with EventManager and save the event into the database
         if (eventManager.validateDetails(name, discipline, description, location, maxParticipant, price, startDate, endDate)) {
+            Toast.makeText(this, "Details valid", Toast.LENGTH_SHORT).show();
             if (eventManager.saveEvent(name, discipline, description, location, maxParticipant, price, startDate, endDate)) {
                 finish();
             }
