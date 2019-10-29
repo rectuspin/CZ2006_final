@@ -14,12 +14,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
+
+/*
+Entity class for facility
+ */
+
 public class Facility {
 
     private String facilityIndex;
     Geocoder geocoder;
-
-
 
     private String facilities,userid,name,website,address;
     private double lat,lng;

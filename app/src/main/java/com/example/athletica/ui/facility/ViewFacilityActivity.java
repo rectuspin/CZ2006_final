@@ -85,10 +85,13 @@ public class ViewFacilityActivity extends AppCompatActivity {
         sendComment=(Button)findViewById(R.id.send);
         commentsList=new ArrayList<>();
 
+
+
+        //getting data and methods
+
         dataManager=new DataManager();
         facilityIndex = getIntent().getStringExtra("index");
         facility =dataManager.readIndex(this,facilityIndex);
-
         facilityManager=new FacilityManager(this,facilityIndex);
 
         // setting textViews

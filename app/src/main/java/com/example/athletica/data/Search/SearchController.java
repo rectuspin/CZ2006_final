@@ -22,7 +22,7 @@ public class SearchController {
     private ArrayList<String> userName = new ArrayList<String>();// unique indexes of all the records are stored in this list
     private ArrayList<String> userIds = new ArrayList<>();
 
-    //private ArrayList<Event> eventsList=new ArrayList<>();      // similar to facciities, details of events have to be stored, this has not been implemented yet.
+
     private ArrayList<Facility> facilityMap;
     private ArrayList<Map> eventMap;
     private ArrayList<Map> userMap;

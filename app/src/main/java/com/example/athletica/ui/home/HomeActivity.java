@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
+import com.example.athletica.data.DisplayAll.DisplayController;
 import com.example.athletica.data.event.Event;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.event.CreateEventActivity;
 import com.example.athletica.ui.profile.ViewProfileActivity;
+import com.example.athletica.ui.search.DisplayAll;
 import com.example.athletica.ui.search.Layout_mainpage;
 import com.example.athletica.ui.search.SearchResultActivity;
 import com.example.athletica.ui.settings.SettingsActivity;
@@ -43,11 +45,7 @@ public class HomeActivity extends AppCompatActivity {
     private EditText etSearch;
 
     private DataManager dataManager;
-
-    private ArrayList<Map> eventMap;
-    private ArrayList<String> eventsName = new ArrayList<String>();// unique indexes of all the records are stored in this list
-    private ArrayList<String> eventIds = new ArrayList<>();
-
+    private DisplayController displayController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,6 @@ public class HomeActivity extends AppCompatActivity {
 
         dataManager = new DataManager();
 
-        getEvents(); //for displaying events on the main page
 
 
         setupNavigationView();
@@ -176,28 +173,17 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void getEvents(){
-        dataManager.getEventKeys(new DataManager.DataStatus() {
-            @Override
-            public void dataLoaded(Object object) {
-                eventMap = ((ArrayList<Map>)object);
-                EventParser(eventMap);
-            }
-        }, 4,"");
+
+    public void onStart() {
+        super.onStart();
+        displayController=new DisplayController(this,1);
+        displayController.getFeaturedEvents(this);
+
+
 
     }
 
-    private void EventParser(ArrayList<Map> sample){
-        for(Map<String, String> map:sample){
-            String str1 = map.get("key");
-            String str2 = map.get("name");
-            eventIds.add(str1);
-            eventsName.add(str2);
-        }
-        initRecyclerView(1,eventsName,eventIds);
-    }
-
-    private void initRecyclerView(int id,ArrayList<String> names,ArrayList<String> index ){
+    public void initRecyclerView(int id,ArrayList<String> names,ArrayList<String> index ){
 
         LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
 

@@ -1,22 +1,22 @@
 package com.example.athletica.ui.search;
 
-import android.app.SearchManager;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.athletica.R;
 import com.example.athletica.data.Search.SearchController;
-import com.example.athletica.data.user.DataManager;
-
 import java.util.ArrayList;
-import java.util.Map;
+
+
+/*
+This boundary class displays the search results corresponding to each entity (users/facilities/events)
+ */
+
 
 public class SearchResultActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,16 +38,15 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         viewAllText_Users.setOnClickListener(this);
 
 
-        // Get the search query from search manager
         Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            str = intent.getStringExtra(SearchManager.QUERY);
-        }
 
+
+        // Get the search query from search manager
         str = intent.getStringExtra("query");
-        searchController=new SearchController(this,str);
 
+        searchController=new SearchController(this,str); //running constructor for controller
 
+        // the following three statements display the entities;
         searchController.getFacilities(this);
         searchController.getEvents(this);
         searchController.getUsers(this);
@@ -67,7 +66,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    // this is used to initialize the first recycler view (to display the facilities)
+    // this is used to initialize the  recycler view
     public void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView;
@@ -88,6 +87,8 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+    //Method if the user presses view all button below the entity.
 
     @Override
     public void onClick(View view) {
