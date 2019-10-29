@@ -44,16 +44,21 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         // Get the search query from search manager
         str = intent.getStringExtra("query");
 
+
+
+    }
+
+
+
+    public void onStart(){
+        super.onStart();
         searchController=new SearchController(this,str); //running constructor for controller
 
         // the following three statements display the entities;
         searchController.getFacilities(this);
         searchController.getEvents(this);
         searchController.getUsers(this);
-
     }
-
-
 
 
 
