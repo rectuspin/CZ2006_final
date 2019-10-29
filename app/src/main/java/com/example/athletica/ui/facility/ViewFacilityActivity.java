@@ -2,6 +2,7 @@ package com.example.athletica.ui.facility;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
+import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.data.facility.Comments;
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.facility.FacilityManager;
@@ -54,14 +56,16 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private FacilityManager facilityManager;
     private DataManager dataManager;
 
-    private EditText addcomment;
-    private Button sendComment;
+
     private Button submitButton;
     private TextView ratingDisplayTextView;
+    private TextView currentRating;
 
+    private EditText addcomment;
+    private Button sendComment;
     private ListView listViewComments;
     private List<Comments> commentsList;
-
+    float ratingAvg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
         submitButton = (Button) findViewById(R.id.submit_button);
         ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
+        currentRating=(TextView)findViewById(R.id.current_rating);
+
         listViewComments = (ListView) findViewById(R.id.list_view_comment);
         addcomment = findViewById(R.id.add_comment);
         sendComment = (Button) findViewById(R.id.send);
@@ -122,19 +128,10 @@ public class ViewFacilityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //addRatings();
-                DatabaseReference Ratings_DB_Ref = facility.getRatings_DB_Ref();
                 float submitted_rating = ratingRatingBar.getRating();
-                Ratings ratings_;
-                if (submitted_rating == 5.0)
-                    ratings_ = new Ratings(1);
-                else
-                    ratings_ = new Ratings(0);
-                String id = Ratings_DB_Ref.push().getKey();
+                facilityManager.addRating(submitted_rating);
+                ratingDisplayTextView.setText("Your rating is :" + submitted_rating);
 
-                //Ratings_DB_Ref.child(facilityIndex).setValue(ratings_);
-                Ratings_DB_Ref.child(facilityIndex).setValue(ratings_);
-
-                ratingDisplayTextView.setText("Your rating is :" + ratingRatingBar.getRating());
             }
         });
 
@@ -156,6 +153,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         DatabaseReference Comments_DB_Reference = facility.getComments_DB_Reference();
+        DatabaseReference Ratings_DB_Reference = facility.getRatings_DB_Ref();
+
         Comments_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -173,6 +172,30 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
             }
         });
+        Ratings_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                float sum=0;
+                long numChild=0;
+
+                for (DataSnapshot ratingsSnapshot : dataSnapshot.getChildren()) {
+                    Ratings rating = ratingsSnapshot.getValue(Ratings.class);
+                    sum+=rating.getRatingContent();
+                    numChild=dataSnapshot.getChildrenCount();
+                }
+                ratingAvg=(float)sum/numChild;
+                String rat=String.valueOf(ratingAvg);
+                currentRating.setText("Current rating of this facility is "+rat);
+                ratingRatingBar.setRating(ratingAvg);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

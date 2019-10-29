@@ -140,8 +140,8 @@
 
             <TextView
                 android:id="@+id/rating_display_text_View"
-                android:layout_width="201dp"
-                android:layout_height="22dp"
+                android:layout_width="166dp"
+                android:layout_height="25dp"
                 android:text="Your rating appears here"
                 app:layout_constraintStart_toStartOf="@+id/facility_rating_bar"
                 app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar" />
@@ -164,7 +164,7 @@
 
                 android:layout_marginStart="24dp"
 
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="64dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
@@ -176,13 +176,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
                 android:text="SEND"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/add_comment"
-                app:layout_constraintTop_toBottomOf="@+id/submit_button"
 
-                app:layout_constraintVertical_bias="0.079" />
+                app:layout_constraintTop_toBottomOf="@+id/submit_button"
+                app:layout_constraintVertical_bias="0.148" />
 
             <ListView
                 android:id="@+id/list_view_comment"
@@ -196,6 +197,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/add_comment" />
 
+            <TextView
+                android:id="@+id/current_rating"
+                android:layout_width="191dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="204dp"
+                android:layout_marginTop="2dp"
+                android:text="Current rating of this facility"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

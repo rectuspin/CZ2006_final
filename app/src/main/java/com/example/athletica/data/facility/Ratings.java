@@ -1,9 +1,11 @@
 package com.example.athletica.data.facility;
 
 public class Ratings {
-    //private String ratingID;
-    //private String facilityID;
+    private String ratingID;
+    private String facilityID;
+
     private float ratingContent;
+    /*
     private float five = 0;
     private float fourpfive = 0;
     private float four = 0;
@@ -15,34 +17,22 @@ public class Ratings {
     private float one = 0;
     private float pfive = 0;
     private float zero = 0;
-
+    */
 
     public Ratings() {
     }
 
 
-    public Ratings(int num) {
-        five += num;
-    }
-
-    public float addrating(float ratingContent) {
-        switch ((int) (10 * ratingContent)) {
-            case 50:
-                five++;
-                break;
-            case 45:
-                fourpfive++;
-                break;
-
-        }
-        return five;
-    }
-
-    public float getFive() {
-        return five;
+    public Ratings(float ratingContent,String ratingID) {
+        this.ratingContent=ratingContent;
+        this.ratingID=ratingID;
     }
 
     public float getRatingContent() {
         return ratingContent;
+    }
+
+    public String getRatingID() {
+        return ratingID;
     }
 }
