@@ -4,12 +4,19 @@ package com.example.athletica.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.athletica.R;
 import com.example.athletica.data.Search.SearchController;
+import com.example.athletica.ui.event.ViewEventActivity;
+import com.example.athletica.ui.facility.ViewFacilityActivity;
+import com.example.athletica.ui.profile.ViewProfileActivity;
+
 import java.util.ArrayList;
 
 
@@ -24,6 +31,11 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     private String str;
     private SearchController searchController;
 
+    private ListView rvFacility;
+    private ListView rvEvents;
+    private ListView rvUsers;
+    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,34 +46,36 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         viewAllText_facilities.setOnClickListener(this);
         TextView viewAllText_events = findViewById(R.id.button2);
         viewAllText_events.setOnClickListener(this);
-        TextView viewAllText_Users=findViewById(R.id.button3);
+        TextView viewAllText_Users = findViewById(R.id.button3);
         viewAllText_Users.setOnClickListener(this);
 
 
+        rvFacility = findViewById(R.id.rvFacility);
+        rvEvents = findViewById(R.id.rvEvent);
+        rvUsers = findViewById(R.id.rvUsers);
+
+
         Intent intent = getIntent();
-
-
-        // Get the search query from search manager
         str = intent.getStringExtra("query");
-
-
-
-    }
-
-
-
-    public void onStart(){
-        super.onStart();
-        searchController=new SearchController(this,str); //running constructor for controller
-
-        // the following three statements display the entities;
+        searchController = new SearchController(this, str); //running constructor for controller
         searchController.getFacilities(this);
         searchController.getEvents(this);
         searchController.getUsers(this);
+
     }
 
 
-
+//    public void onStart() {
+//        super.onStart();
+//        // Get the search query from search manager
+//        Intent intent = getIntent();
+//        str = intent.getStringExtra("query");
+//        searchController = new SearchController(this, str); //running constructor for controller
+//        // the following three statements display the entities;
+//        searchController.getFacilities(this);
+//        searchController.getEvents(this);
+//        searchController.getUsers(this);
+//    }
 
 
     @Override
@@ -72,26 +86,68 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
 
 
     // this is used to initialize the  recycler view
-    public void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView;
 
 
-        if (id == 0)
-            recyclerView = findViewById(R.id.rvFacility);
-
-        else if (id == 1)
-            recyclerView = findViewById(R.id.rvEvent);
-
-        else
-            recyclerView = findViewById(R.id.rvUsers);
+    public void initRecyclerView(ArrayList<String> names, final ArrayList<String> index, int id) {
+        ArrayAdapter<String> arrayAdapter;
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
 
 
-        recyclerView.setLayoutManager(layoutManager);
-        SearchResultRecyclerViewAdapter adapter = new SearchResultRecyclerViewAdapter(this, names, index, id);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        if (id == 0) {
+            rvFacility.setAdapter(arrayAdapter);
+            rvFacility.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    intent = new Intent(SearchResultActivity.this, ViewFacilityActivity.class);
+                    intent.putExtra("index", index.get(i));
+                    startActivity(intent);
+                }
+            });
+        } else if (id == 1) {
+            rvEvents.setAdapter(arrayAdapter);
+            rvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    intent = new Intent(SearchResultActivity.this, ViewEventActivity.class);
+                    intent.putExtra("key", index.get(i));
+                    startActivity(intent);
+                }
+            });
+        } else {
+            rvUsers.setAdapter(arrayAdapter);
+            rvUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    intent = new Intent(SearchResultActivity.this, ViewProfileActivity.class);
+                    intent.putExtra("key", index.get(i));
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
+
+
+//    public void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        RecyclerView recyclerView;
+//        Log.v("running view","runnign recycler view"+id);
+//
+//        if (id == 0)
+//            recyclerView = findViewById(R.id.rvFacility);
+//
+//        else if (id == 1)
+//            recyclerView = findViewById(R.id.rvEvent);
+//
+//        else
+//            recyclerView = findViewById(R.id.rvUsers);
+//
+//
+//        recyclerView.setLayoutManager(layoutManager);
+//        SearchResultRecyclerViewAdapter adapter = new SearchResultRecyclerViewAdapter(this, names, index, id);
+//        recyclerView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
+//    }
 
     //Method if the user presses view all button below the entity.
 
