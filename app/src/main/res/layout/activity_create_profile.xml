@@ -17,7 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/firstPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/descriptionEditText"
@@ -137,12 +138,15 @@
             android:id="@+id/addNewButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
             android:background="#00FFFFFF"
 
+            android:onClick="addNewPreference"
+            android:src="@drawable/ic_add_24px"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/submitButton"
