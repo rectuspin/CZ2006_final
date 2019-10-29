@@ -21,8 +21,13 @@ public class Facility {
     private Map<String,String> facility;
     Geocoder geocoder;
 
-    String userid;
     Context context;
+
+
+    private String facilities,userid,name,website,address;
+    private double lat,lng;
+
+
 
     ListView listViewComments;
     List<Comments> commentsList;
@@ -41,10 +46,24 @@ public class Facility {
         this.Comments_DB_Reference= FirebaseDatabase.getInstance().getReference("facility_comments");
         this.Ratings_DB_Ref=FirebaseDatabase.getInstance().getReference("facility_ratings");
 
+
+        this.facilities=facility.get("Facilities").replace("/", "  ");
+        this.name=facility.get("name");
+        this.website=facility.get("website");
+        this.lat=Double.parseDouble(facility.get("lat"));
+        this.lng=Double.parseDouble(facility.get("long"));
+        try {
+            this.address=geocoder.getFromLocation(lat, lng, 1).get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.address="";
+        }
+
+
     }
 
     public String getFacilities() {
-        return facility.get("Facilities").replace("/", "  ");
+        return facilities;
     }
 
     public String getUserid() {
@@ -60,30 +79,23 @@ public class Facility {
     }
 
     public String getName() {
-        return facility.get("name");
+        return name;
     }
 
     public String getWebsite() {
-        return facility.get("website");
+        return website;
     }
 
     public double getLat(){
-        return Double.parseDouble(facility.get("lat"));
+        return lat;
     }
 
     public double getLong(){
-        return Double.parseDouble(facility.get("long"));
+        return lng;
     }
 
     public String getAddress(){
-        double lat=getLat();
-        double lng=getLong();
-
-        try {
-            return geocoder.getFromLocation(lat, lng, 1).get(0).getAddressLine(0);
-        } catch (IOException e) {
-            return "Address Could not be fetched";
-        }
+        return address;
     }
 
 
