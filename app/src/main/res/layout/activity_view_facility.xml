@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="84dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
                 android:numStars="5"
                 android:stepSize="0.5"
@@ -138,21 +138,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/comment_view_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="136dp"
-                android:layout_marginEnd="87dp"
-                android:layout_marginBottom="167dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toTopOf="@+id/facility_rating_bar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/facilities_offered"
-                app:layout_constraintTop_toTopOf="@+id/map_button"
-                app:layout_constraintVertical_bias="0.696" />
-
             <TextView
                 android:id="@+id/rating_display_text_View"
                 android:layout_width="201dp"
@@ -190,25 +175,27 @@
                 android:id="@+id/send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+
+                android:layout_marginStart="24dp"
                 android:text="SEND"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/add_comment"
                 app:layout_constraintTop_toBottomOf="@+id/submit_button"
-                app:layout_constraintVertical_bias="0.978" />
+
+                app:layout_constraintVertical_bias="0.079" />
 
             <ListView
                 android:id="@+id/list_view_comment"
-                android:layout_width="180dp"
-                android:layout_height="107dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="15dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                app:layout_constraintEnd_toStartOf="@+id/submit_button"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/facilities_offered"
-                app:layout_constraintTop_toBottomOf="@+id/submit_button"
-                app:layout_constraintVertical_bias="1.0" />
+                android:layout_width="331dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:nestedScrollingEnabled="true"
+                android:scrollingCache="true"
+                android:smoothScrollbar="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_comment" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
