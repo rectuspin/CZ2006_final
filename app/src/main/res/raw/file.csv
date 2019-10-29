@@ -1,0 +1,36 @@
+index,gid,FACILITIES
+0,2,Swimming Complex/Sports Hall/Stadium/Gym
+1,3,Swimming Complex
+2,5,Swimming Complex/Sports Hall/Stadium/Tennis Centre/Gym
+3,7,Swimming Complex/Sports Hall/Stadium/Futsal Court/Tennis Centre/Gym
+4,8,Stadium
+5,10,Stadium
+6,12,Swimming Complex/Sports Hall/Stadium/Tennis Centre/Gym
+7,13,Swimming Complex
+8,15,Swimming Complex
+9,17,Swimming Complex/Sports Hall/Stadium/Tennis Centre/Gym
+10,19,Swimming Complex/Sports Hall/Gym/Hockey Pitch
+11,21,Swimming Complex/Gym
+12,23,Swimming Complex/Sports Hall/Stadium/Gym
+13,24,Field/Tennis Centre
+14,26,Sports Hall/Stadium/Gym
+15,27,Swimming Complex
+16,28,Sports Hall/Stadium/Swimming Complex/Tennis Centre/Squash Centre/Hockey Pitch
+17,34,Swimming Complex/Stadium
+18,30,Gym
+19,31,Swimming Complex
+20,32,Field
+21,33,Field/Tennis Centre
+22,1,Swimming Complex
+23,4,Sports Hall/Stadium/Gym
+24,6,Squash Centre/Tennis Centre
+25,9,Swimming Complex/Sports Hall/Stadium/Gym
+26,11,Swimming Complex/Sports Hall/Gym
+27,14,Practice Track/Field/Tennis Centre/Squash Centre/Netball Centre/Lawn Bowl
+28,16,Sports Hall
+29,18,Swimming Complex/Stadium
+30,20,Swimming Complex/ Stadium
+31,22,Swimming Complex/Sports Hall/Stadium/Gym
+32,25,Swimming Complex/Sports Hall/Stadium/Tennis Centre/Squash Centre/Gym
+33,29,Swimming Complex/Sports Hall/Gym/Hockey Pitch
+34,35,Swimming Complex/Sports Hall/Stadium/Gym/Gateball & Petanque Courts
