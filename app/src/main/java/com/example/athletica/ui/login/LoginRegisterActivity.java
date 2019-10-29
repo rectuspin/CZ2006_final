@@ -29,9 +29,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
         loginRegisterManager = new LoginRegisterManager(getApplicationContext());
 
         // Start the HomeActivity if the user is already logged in
-        if (loginRegisterManager.isLoggedIn())
+        if (loginRegisterManager.isLoggedIn()) {
             startActivity(new Intent(LoginRegisterActivity.this, HomeActivity.class));
-        else {
+            finish();
+        } else {
             // Setup the ViewPager
             viewPager = findViewById(R.id.viewPager);
             LoginRegisterPagerAdapter loginRegisterPagerAdapter = new LoginRegisterPagerAdapter(getSupportFragmentManager());
