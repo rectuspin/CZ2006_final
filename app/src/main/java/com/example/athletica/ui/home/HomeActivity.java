@@ -23,7 +23,6 @@ import com.example.athletica.data.event.Event;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.event.CreateEventActivity;
 import com.example.athletica.ui.profile.ViewProfileActivity;
-import com.example.athletica.ui.search.DisplayAll;
 import com.example.athletica.ui.search.Layout_mainpage;
 import com.example.athletica.ui.search.SearchResultActivity;
 import com.example.athletica.ui.settings.SettingsActivity;
@@ -31,7 +30,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -59,10 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         etSearch = findViewById(R.id.editTextSearch);
 
 
-
-
         dataManager = new DataManager();
-
 
 
         setupNavigationView();
@@ -84,8 +79,6 @@ public class HomeActivity extends AppCompatActivity {
                 drawer.openDrawer(GravityCompat.END);
             }
         });
-
-
 
 
     }
@@ -176,28 +169,25 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        displayController=new DisplayController(this,1);
+        displayController = new DisplayController(this, 1);
         displayController.getFeaturedEvents(this);
-
 
 
     }
 
-    public void initRecyclerView(int id,ArrayList<String> names,ArrayList<String> index ){
+    public void initRecyclerView(int id, ArrayList<String> names, ArrayList<String> index) {
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        RecyclerView recyclerView=findViewById(R.id.rv_home);
+        RecyclerView recyclerView = findViewById(R.id.rv_home);
 
         recyclerView.setLayoutManager(layoutManager);
 
-        Layout_mainpage adapter = new Layout_mainpage(this,names,index,id);
+        Layout_mainpage adapter = new Layout_mainpage(this, names, index, id);
 
         recyclerView.setAdapter(adapter);
 
     }
-
-
 
 
     // Setup the recyclerView

@@ -15,7 +15,7 @@ import com.example.athletica.data.user.DataManager;
 import com.example.athletica.data.user.UserProfile;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-public class ViewProfileActivity extends AppCompatActivity implements View.OnClickListener{
+public class ViewProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvName, tvEmail, tvGender, tvBio, tvInterest, tvUpComing;
     ExtendedFloatingActionButton btnEdit;
@@ -38,7 +38,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
 
         index = getIntent().getStringExtra("key");
 
-        if(TextUtils.isEmpty(index)){
+        if (TextUtils.isEmpty(index)) {
             index = LoginRegisterManager.loggedUser.getId();
         }
         dataManager = new DataManager();
@@ -60,7 +60,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void populate(UserProfile profile) {
-        if(!index.equals(LoginRegisterManager.loggedUser.getId())){
+        if (!index.equals(LoginRegisterManager.loggedUser.getId())) {
             btnEdit.setIcon(null);
             btnEdit.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_24px, 0, 0, 0);
             btnEdit.setText("Follow");
@@ -78,9 +78,9 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.action_edit:
-                Toast.makeText(this,"Edit profile/Follow (will be implemented soon)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Edit profile/Follow (will be implemented soon)", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

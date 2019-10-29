@@ -14,7 +14,7 @@ public class Event {
     private int currentParticipants;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public Event(){
+    public Event() {
 
     }
 

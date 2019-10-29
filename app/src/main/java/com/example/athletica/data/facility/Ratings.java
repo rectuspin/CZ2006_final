@@ -24,8 +24,9 @@ public class Ratings {
     public Ratings(int num) {
         five += num;
     }
-    public float addrating(float ratingContent){
-        switch((int)(10*ratingContent)){
+
+    public float addrating(float ratingContent) {
+        switch ((int) (10 * ratingContent)) {
             case 50:
                 five++;
                 break;
@@ -36,6 +37,7 @@ public class Ratings {
         }
         return five;
     }
+
     public float getFive() {
         return five;
     }

@@ -32,11 +32,11 @@ import java.util.Date;
 
 public class LoginRegisterManager {
 
+    public static User loggedUser;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private Context context;
     private ProgressDialog progressDialog;
-    public static User loggedUser;
 
     public LoginRegisterManager() {
         this.firebaseDatabase = FirebaseDatabase.getInstance();
@@ -50,6 +50,21 @@ public class LoginRegisterManager {
         progressDialog = new ProgressDialog(context);
     }
 
+    public static void setLoggedUser() {
+        final DataManager dataManager = new DataManager();
+        dataManager.getUser(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                loggedUser = (User) object;
+                dataManager.getUserEvents(new DataManager.DataStatus() {
+                    @Override
+                    public void dataLoaded(Object object) {
+                        loggedUser.setEventsJoined((ArrayList<String>) object);
+                    }
+                }, loggedUser.getId());
+            }
+        }, FirebaseAuth.getInstance().getCurrentUser().getUid());
+    }
 
     public void register(String email, final String password, final String confirmPassword) {
         if (password.equals(confirmPassword)) {
@@ -78,7 +93,6 @@ public class LoginRegisterManager {
         }
     }
 
-
     public void login(String email, String password) {
         progressDialog.setMessage("Logging in...");
         progressDialog.show();
@@ -102,7 +116,6 @@ public class LoginRegisterManager {
                 });
     }
 
-
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
         loggedUser = null;
@@ -110,7 +123,6 @@ public class LoginRegisterManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-
 
     public boolean isLoggedIn() {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -122,7 +134,6 @@ public class LoginRegisterManager {
             return true;
         }
     }
-
 
     public void changePassword(final String password, final String confirmPassword, final String oldPassword) {
         if (password.equals(confirmPassword)) {
@@ -183,7 +194,6 @@ public class LoginRegisterManager {
         setLoggedUser();
     }
 
-
     public boolean validateLoginRegisterInput(String email, String password) {
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(context, "E-mail cannot be empty!", Toast.LENGTH_SHORT).show();
@@ -208,7 +218,6 @@ public class LoginRegisterManager {
         return true;
     }
 
-
     public boolean validateProfileDetails(Date current, Date birthdayDate, String name) {
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(context, "Name is required!", Toast.LENGTH_SHORT).show();
@@ -225,23 +234,6 @@ public class LoginRegisterManager {
             return false;
         }
         return true;
-    }
-
-
-    public static void setLoggedUser() {
-        final DataManager dataManager = new DataManager();
-        dataManager.getUser(new DataManager.DataStatus() {
-            @Override
-            public void dataLoaded(Object object) {
-                loggedUser = (User) object;
-                dataManager.getUserEvents(new DataManager.DataStatus() {
-                    @Override
-                    public void dataLoaded(Object object) {
-                        loggedUser.setEventsJoined((ArrayList<String>) object);
-                    }
-                }, loggedUser.getId());
-            }
-        }, FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
 

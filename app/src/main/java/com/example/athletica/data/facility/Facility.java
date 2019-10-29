@@ -2,17 +2,13 @@ package com.example.athletica.data.facility;
 
 import android.content.Context;
 import android.location.Geocoder;
-import android.widget.ListView;
 
 import com.example.athletica.data.account.LoginRegisterManager;
-import com.example.athletica.data.user.DataManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 
 
@@ -22,32 +18,29 @@ Entity class for facility
 
 public class Facility {
 
-    private String facilityIndex;
     Geocoder geocoder;
-
-    private String facilities,userid,name,website,address;
-    private double lat,lng;
-
-
     DatabaseReference Comments_DB_Reference;
     DatabaseReference Ratings_DB_Ref;
+    private String facilityIndex;
+    private String facilities, userid, name, website, address;
+    private double lat, lng;
 
 
-    public Facility(String index,String lng,String lat,String name,String facilities,String zip,String website){
+    public Facility(String index, String lng, String lat, String name, String facilities, String zip, String website) {
 
 
-        this.userid= LoginRegisterManager.loggedUser.getId();
-        this.Comments_DB_Reference= FirebaseDatabase.getInstance().getReference("facility_comments");
-        this.Ratings_DB_Ref=FirebaseDatabase.getInstance().getReference("facility_ratings");
+        this.userid = LoginRegisterManager.loggedUser.getId();
+        this.Comments_DB_Reference = FirebaseDatabase.getInstance().getReference("facility_comments");
+        this.Ratings_DB_Ref = FirebaseDatabase.getInstance().getReference("facility_ratings");
 
 
-        this.facilityIndex=index;
-        this.facilities=facilities.replace("/", "  ");
-        this.name=name;
-        this.website=website;
-        this.lat=Double.parseDouble(lat);
-        this.lng=Double.parseDouble(lng);
-        this.address=zip;
+        this.facilityIndex = index;
+        this.facilities = facilities.replace("/", "  ");
+        this.name = name;
+        this.website = website;
+        this.lat = Double.parseDouble(lat);
+        this.lng = Double.parseDouble(lng);
+        this.address = zip;
 
     }
 
@@ -79,16 +72,16 @@ public class Facility {
         return website;
     }
 
-    public double getLat(){
+    public double getLat() {
         return lat;
     }
 
-    public double getLong(){
+    public double getLong() {
         return lng;
     }
 
-    public String getAddress(Context context){
-        geocoder=new Geocoder(context,Locale.getDefault());
+    public String getAddress(Context context) {
+        geocoder = new Geocoder(context, Locale.getDefault());
         try {
             return geocoder.getFromLocation(this.lat, this.lng, 1).get(0).getAddressLine(0);
         } catch (IOException e) {
@@ -96,14 +89,6 @@ public class Facility {
         }
         return address;
     }
-
-
-
-
-
-
-
-
 
 
 }

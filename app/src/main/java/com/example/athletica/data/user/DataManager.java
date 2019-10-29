@@ -33,11 +33,6 @@ public class DataManager {
         firebaseDatabase = FirebaseDatabase.getInstance();
     }
 
-    public interface DataStatus {
-        void dataLoaded(Object object);
-    }
-
-
     public void getUser(final DataStatus dataStatus, final String id) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info").child(id);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -55,7 +50,6 @@ public class DataManager {
         });
     }
 
-
     public void getProfileByKey(final DataStatus dataStatus, final String profileId) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info").child(profileId);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -71,7 +65,6 @@ public class DataManager {
             }
         });
     }
-
 
     public void getUserEvents(final DataStatus dataStatus, final String id) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_events").child(id);
@@ -91,7 +84,6 @@ public class DataManager {
             }
         });
     }
-
 
     public void getEventKeys(final DataStatus dataStatus, final long amount, final String str) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("events_info");
@@ -123,7 +115,6 @@ public class DataManager {
         });
     }
 
-
     public void getEventByKey(final DataStatus dataStatus, final String eventId) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("events_info").child(eventId);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,7 +130,6 @@ public class DataManager {
             }
         });
     }
-
 
     public void getAllUsers(final DataStatus dataStatus, final String query) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info");
@@ -165,7 +155,6 @@ public class DataManager {
         });
     }
 
-
     public List<Facility> readDataAll(Context context, String str) {
         List<Facility> dataList = new ArrayList<>();
         InputStream is = context.getResources().openRawResource(R.raw.sports);
@@ -180,7 +169,7 @@ public class DataManager {
                 String[] tokens = line.split(",");
 
                 if (tokens[3].toLowerCase().contains(str.toLowerCase()) || tokens[4].toLowerCase().contains(str.toLowerCase())) {
-                    facility=new Facility(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],tokens[6]);
+                    facility = new Facility(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], tokens[6]);
                     dataList.add(facility);
                 }
             }
@@ -190,7 +179,6 @@ public class DataManager {
 
         return dataList;
     }
-
 
     public Facility readIndex(Context context, String index) {
         InputStream is = context.getResources().openRawResource(R.raw.sports);
@@ -210,7 +198,7 @@ public class DataManager {
 
                 if (tokens[0].equals(index)) {
 
-                    facility=new Facility(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],tokens[6]);
+                    facility = new Facility(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], tokens[6]);
                     return facility;
                 }
             }
@@ -218,6 +206,11 @@ public class DataManager {
             Log.wtf("My activity ", "error");
         }
         return null;
+    }
+
+
+    public interface DataStatus {
+        void dataLoaded(Object object);
     }
 }
 

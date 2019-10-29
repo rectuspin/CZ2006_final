@@ -21,20 +21,20 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
     private Activity context;
     private List<Comments> commentsList;
 
-    public CommentAdapter(Activity context, List<Comments> commentsList){
-        super(context,R.layout.activity_comment_adapter,commentsList);
-        this.context=context;
-        this.commentsList=commentsList;
+    public CommentAdapter(Activity context, List<Comments> commentsList) {
+        super(context, R.layout.activity_comment_adapter, commentsList);
+        this.context = context;
+        this.commentsList = commentsList;
     }
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View listView =inflater.inflate(R.layout.activity_comment_adapter, null,true);
+        LayoutInflater inflater = context.getLayoutInflater();
+        View listView = inflater.inflate(R.layout.activity_comment_adapter, null, true);
 
-        TextView comment_text=(TextView)listView.findViewById(R.id.comment_text_view);
+        TextView comment_text = (TextView) listView.findViewById(R.id.comment_text_view);
 
-        Comments com=commentsList.get(position);
+        Comments com = commentsList.get(position);
         comment_text.setText(com.getCommentContent());
 
         return listView;

@@ -19,19 +19,16 @@ public class FacilityManager {
     private DataManager dataManager;
 
     public FacilityManager(Context context, String facilityIndex) {
-        this.facilityIndex=facilityIndex;
-        dataManager=new DataManager();
-        facility=dataManager.readIndex(context,facilityIndex);
+        this.facilityIndex = facilityIndex;
+        dataManager = new DataManager();
+        facility = dataManager.readIndex(context, facilityIndex);
 
     }
 
 
-
-
-
     public boolean addComments(String comment) {
-        DatabaseReference Comments_DB_Reference=facility.getComments_DB_Reference();
-        String userid=facility.getUserid();
+        DatabaseReference Comments_DB_Reference = facility.getComments_DB_Reference();
+        String userid = facility.getUserid();
         String comment_content = comment;
         if (!TextUtils.isEmpty(comment_content)) {
             String id = Comments_DB_Reference.push().getKey();
@@ -46,7 +43,7 @@ public class FacilityManager {
     }
 
 
-    public void addRatings(){
+    public void addRatings() {
 
     }
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
-import com.example.athletica.data.Search.SearchController;
+import com.example.athletica.data.search.SearchManager;
 import com.example.athletica.ui.event.ViewEventActivity;
 import com.example.athletica.ui.facility.ViewFacilityActivity;
 import com.example.athletica.ui.profile.ViewProfileActivity;
@@ -29,7 +29,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
 
 
     private String str;
-    private SearchController searchController;
+    private com.example.athletica.data.search.SearchManager searchManager;
 
     private ListView rvFacility;
     private ListView rvEvents;
@@ -55,8 +55,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         rvUsers = findViewById(R.id.rvUsers);
 
 
-
-
     }
 
 
@@ -65,11 +63,11 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         // Get the search query from search manager
         Intent intent = getIntent();
         str = intent.getStringExtra("query");
-        searchController = new SearchController(this, str); //running constructor for controller
+        searchManager = new SearchManager(this, str); //running constructor for controller
         // the following three statements display the entities;
-        searchController.getFacilities(this);
-        searchController.getEvents(this);
-        searchController.getUsers(this);
+        searchManager.getFacilities(this);
+        searchManager.getEvents(this);
+        searchManager.getUsers(this);
     }
 
 

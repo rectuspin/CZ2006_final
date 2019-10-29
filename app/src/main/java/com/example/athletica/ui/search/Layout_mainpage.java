@@ -42,7 +42,7 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Log.v("view all running",mNames.toString());
+        Log.v("view all running", mNames.toString());
         holder.txt1.setText(mNames.get(position));
         holder.txt2.setText(String.valueOf(position));
         holder.txt1.setOnClickListener(new View.OnClickListener() {
@@ -52,15 +52,11 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
                     Intent intent = new Intent(mContext, ViewFacilityActivity.class);
                     intent.putExtra("index", index.get(position));
                     mContext.startActivity(intent);
-                }
-
-                else if (state==1){
+                } else if (state == 1) {
                     Intent intent = new Intent(mContext, ViewEventActivity.class);
                     intent.putExtra("key", index.get(position));
                     mContext.startActivity(intent);
-                }
-
-                else{
+                } else {
                     Intent intent = new Intent(mContext, ViewProfileActivity.class);
                     intent.putExtra("key", index.get(position));
                     mContext.startActivity(intent);

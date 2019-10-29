@@ -17,6 +17,31 @@ public class HomeEventRecyclerViewAdapter extends RecyclerView.Adapter<HomeEvent
 
     private List<Event> eventList;
 
+    public HomeEventRecyclerViewAdapter(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.home_event_list_row, parent, false);
+
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Event event = eventList.get(position);
+        holder.tvEventName.setText(event.getName());
+        holder.tvEventLocation.setText(event.getLocation());
+        holder.tvEventDate.setText(event.getStartDate());
+    }
+
+    @Override
+    public int getItemCount() {
+        return eventList.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvEventName, tvEventDate, tvEventLocation;
 
@@ -29,34 +54,5 @@ public class HomeEventRecyclerViewAdapter extends RecyclerView.Adapter<HomeEvent
         }
 
 
-    }
-
-
-    public HomeEventRecyclerViewAdapter(List<Event> eventList) {
-        this.eventList = eventList;
-    }
-
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_event_list_row, parent, false);
-
-        return new ViewHolder(itemView);
-    }
-
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Event event = eventList.get(position);
-        holder.tvEventName.setText(event.getName());
-        holder.tvEventLocation.setText(event.getLocation());
-        holder.tvEventDate.setText(event.getStartDate());
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return eventList.size();
     }
 }

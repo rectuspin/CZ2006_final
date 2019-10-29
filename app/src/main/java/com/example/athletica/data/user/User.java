@@ -13,7 +13,7 @@ public class User {
     private ArrayList<String> eventsJoined;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public User(){
+    public User() {
 
     }
 

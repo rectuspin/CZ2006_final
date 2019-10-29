@@ -34,7 +34,7 @@ import java.util.Locale;
 public class CreateProfileActivity extends AppCompatActivity {
 
     public static String databaseBirthdayFormat = "yyyy-MM-dd";
-
+    private final Calendar myCalendar = Calendar.getInstance();
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
     private RadioGroup sexRadioGroup;
@@ -45,7 +45,6 @@ public class CreateProfileActivity extends AppCompatActivity {
     private ArrayList<String> sportsArray = new ArrayList<String>();
     private ArrayList<String> followsArray = new ArrayList<String>();
     private CustomArrayAdapter sportsArrayAdapter, followsArrayAdapter;
-    private final Calendar myCalendar = Calendar.getInstance();
     private TextView charactersLeftTextView;
     private Date currentDate = new Date();
     private LoginRegisterManager loginRegisterManager;

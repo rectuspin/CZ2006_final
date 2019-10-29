@@ -37,35 +37,35 @@ public class UserProfile {
         return birthdate;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public ArrayList<String> getSportPreferences() {
-        return sportPreferences;
-    }
-
-    public ArrayList<String> getFollows() {
-        return follows;
-    }
-
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public ArrayList<String> getSportPreferences() {
+        return sportPreferences;
     }
 
     public void setSportPreferences(ArrayList<String> sportPreferences) {
         this.sportPreferences = sportPreferences;
     }
 
+    public ArrayList<String> getFollows() {
+        return follows;
+    }
+
     public void setFollows(ArrayList<String> follows) {
         this.follows = follows;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
