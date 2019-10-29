@@ -51,7 +51,7 @@ public class SearchController {
             facilityName.add(str2);
             facilityIds.add(index);
         }
-        searchResultActivity.initRecyclerView(facilityName,facilityIds,0);
+        searchResultActivity.init_ListView(facilityName,facilityIds,0);
     }
 
 
@@ -66,7 +66,7 @@ public class SearchController {
                     eventIds.add(str1);
                     eventsName.add(str2);
                 }
-                searchResultActivity.initRecyclerView(eventsName,eventIds,1);
+                searchResultActivity.init_ListView(eventsName,eventIds,1);
             }
         }, 20, value);
 
@@ -84,7 +84,7 @@ public class SearchController {
                     userIds.add(str1);
                     userName.add(str2);
                 }
-                searchResultActivity.initRecyclerView(userName, userIds, 2);
+                searchResultActivity.init_ListView(userName, userIds, 2);
             }
         }, value);
 

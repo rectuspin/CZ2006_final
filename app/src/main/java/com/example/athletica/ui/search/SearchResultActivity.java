@@ -55,27 +55,22 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         rvUsers = findViewById(R.id.rvUsers);
 
 
-        Intent intent = getIntent();
-        str = intent.getStringExtra("query");
-        searchController = new SearchController(this, str); //running constructor for controller
-        searchController.getFacilities(this);
-        searchController.getEvents(this);
-        searchController.getUsers(this);
+
 
     }
 
 
-//    public void onStart() {
-//        super.onStart();
-//        // Get the search query from search manager
-//        Intent intent = getIntent();
-//        str = intent.getStringExtra("query");
-//        searchController = new SearchController(this, str); //running constructor for controller
-//        // the following three statements display the entities;
-//        searchController.getFacilities(this);
-//        searchController.getEvents(this);
-//        searchController.getUsers(this);
-//    }
+    public void onStart() {
+        super.onStart();
+        // Get the search query from search manager
+        Intent intent = getIntent();
+        str = intent.getStringExtra("query");
+        searchController = new SearchController(this, str); //running constructor for controller
+        // the following three statements display the entities;
+        searchController.getFacilities(this);
+        searchController.getEvents(this);
+        searchController.getUsers(this);
+    }
 
 
     @Override
@@ -88,7 +83,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     // this is used to initialize the  recycler view
 
 
-    public void initRecyclerView(ArrayList<String> names, final ArrayList<String> index, int id) {
+    public void init_ListView(ArrayList<String> names, final ArrayList<String> index, int id) {
         ArrayAdapter<String> arrayAdapter;
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
 
@@ -126,28 +121,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
-
-
-//    public void initRecyclerView(ArrayList<String> names, ArrayList<String> index, int id) {
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        RecyclerView recyclerView;
-//        Log.v("running view","runnign recycler view"+id);
-//
-//        if (id == 0)
-//            recyclerView = findViewById(R.id.rvFacility);
-//
-//        else if (id == 1)
-//            recyclerView = findViewById(R.id.rvEvent);
-//
-//        else
-//            recyclerView = findViewById(R.id.rvUsers);
-//
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//        SearchResultRecyclerViewAdapter adapter = new SearchResultRecyclerViewAdapter(this, names, index, id);
-//        recyclerView.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-//    }
 
     //Method if the user presses view all button below the entity.
 
