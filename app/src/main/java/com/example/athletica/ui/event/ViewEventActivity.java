@@ -2,6 +2,7 @@ package com.example.athletica.ui.event;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,13 +47,28 @@ public class ViewEventActivity extends AppCompatActivity {
 
         getDetails();
 
+
+
         btnJoinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 eventManager.joinEvent(event, LoginRegisterManager.loggedUser);
+                setButton();
                 Toast.makeText(ViewEventActivity.this, event.getId(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setButton(){
+        if(!LoginRegisterManager.loggedUser.canJoin(event.getId())){
+            btnJoinEvent.setClickable(false);
+            btnJoinEvent.setText("Already joined!");
+        }
+        else if(!event.canBeJoined()){
+            btnJoinEvent.setClickable(false);
+            btnJoinEvent.setText("Event is full");
+        }
+        btnJoinEvent.setVisibility(Button.VISIBLE);
     }
 
 
@@ -64,6 +80,7 @@ public class ViewEventActivity extends AppCompatActivity {
                 event = (Event) object;
                 event.setId(index);
                 populate(event);
+                setButton();
             }
         }, index);
     }

@@ -40,6 +40,11 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
         return new ViewHolder(view);
     }
 
+
+
+
+
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.v("view all running", mNames.toString());
