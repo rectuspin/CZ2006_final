@@ -73,11 +73,16 @@ public class DisplayController {
             public void dataLoaded(Object object) {
                 eventMap = ((ArrayList<Map>) object);
                 for (Map<String, String> map : eventMap) {
+
+
                     String str1 = map.get("key");
                     String str2 = map.get("name");
+                    String date=map.get("startDate");
+
                     eventIds.add(str1);
                     eventsName.add(str2);
                 }
+
                 homeActivity.initRecyclerView(1, eventsName, eventIds);
             }
         }, 4, "");

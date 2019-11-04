@@ -96,9 +96,10 @@ public class DataManager {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Map<String, String> eventDetails = new HashMap<>();
 
-                    if (data.child("name").getValue(String.class).contains(str) || data.child("description").getValue(String.class).contains(str)) {
+                    if (data.child("name").getValue(String.class).toLowerCase().contains(str.toLowerCase()) || data.child("description").getValue(String.class).toLowerCase().contains(str.toLowerCase())) {
                         eventDetails.put("key", data.getKey());
                         eventDetails.put("name", data.child("name").getValue(String.class));
+                        eventDetails.put("startDate", data.child("startDate").getValue(String.class));
                         eventIds.add(eventDetails);
                         counter++;
                         if (counter >= amountToDownload)

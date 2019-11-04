@@ -41,16 +41,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@raw/i0"></ImageView>
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="30dp"
-                android:text="Facility Name"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/facility_imageView" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:text="Facility Name"-->
+<!--                android:textSize="48sp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/facility_imageView" />-->
 
             <TextView
                 android:id="@+id/facilities_offered"
@@ -76,11 +76,9 @@
                 android:id="@+id/map_button"
                 android:layout_width="56dp"
                 android:layout_height="51dp"
-                android:layout_marginStart="175dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="38dp"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/facility_imageView" />
 
             <TextView
@@ -94,16 +92,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/facility_name" />
 
+
             <TextView
                 android:id="@+id/facility_name"
-                android:layout_width="wrap_content"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="28dp"
                 android:text="Facility Name"
+                android:textSize="34sp"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
+                app:layout_constraintTop_toBottomOf="@+id/facility_imageView" />
 
             <TextView
                 android:id="@+id/textView4"
