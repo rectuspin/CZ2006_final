@@ -99,6 +99,7 @@ public class DataManager {
                         eventDetails.put("key", data.getKey());
                         eventDetails.put("name", data.child("name").getValue(String.class));
                         eventDetails.put("startDate", data.child("startDate").getValue(String.class));
+                        eventDetails.put("endDate", data.child("endDate").getValue(String.class));
                         eventIds.add(eventDetails);
                         counter++;
                         if (counter >= amountToDownload)
