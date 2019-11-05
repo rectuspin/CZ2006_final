@@ -1,6 +1,9 @@
 package com.example.athletica.data.DisplayAll;
 
 import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
@@ -8,7 +11,9 @@ import com.example.athletica.ui.home.HomeActivity;
 import com.example.athletica.ui.search.DisplayAll;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
+
 
 public class DisplayController {
     Context context;
@@ -77,7 +82,7 @@ public class DisplayController {
 
                     String str1 = map.get("key");
                     String str2 = map.get("name");
-                    String date=map.get("startDate");
+                    String date = map.get("startDate");
 
                     eventIds.add(str1);
                     eventsName.add(str2);
@@ -105,4 +110,13 @@ public class DisplayController {
             }
         }, "");
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ArrayList<Facility> sortFacilityByName() {
+        ArrayList<Facility> facilities = dataManager.readDataAll(context, "");
+        facilities.sort(Comparator.comparing(Facility::getName));
+        return facilities;
+    }
+
 }

@@ -41,16 +41,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@raw/i0"></ImageView>
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView2"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="24dp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:text="Facility Name"-->
-<!--                android:textSize="48sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/facility_imageView" />-->
 
             <TextView
                 android:id="@+id/facilities_offered"
@@ -217,8 +207,7 @@
                 android:layout_marginTop="2dp"
                 android:text="Current rating of this facility"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar" />
 
             <TextView
                 android:id="@+id/textView7"

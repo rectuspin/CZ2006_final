@@ -48,7 +48,6 @@ public class ViewEventActivity extends AppCompatActivity {
         getDetails();
 
 
-
         btnJoinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +58,11 @@ public class ViewEventActivity extends AppCompatActivity {
         });
     }
 
-    private void setButton(){
-        if(!LoginRegisterManager.loggedUser.canJoin(event.getId())){
+    private void setButton() {
+        if (!LoginRegisterManager.loggedUser.canJoin(event.getId())) {
             btnJoinEvent.setClickable(false);
             btnJoinEvent.setText("Already joined!");
-        }
-        else if(!event.canBeJoined()){
+        } else if (!event.canBeJoined()) {
             btnJoinEvent.setClickable(false);
             btnJoinEvent.setText("Event is full");
         }

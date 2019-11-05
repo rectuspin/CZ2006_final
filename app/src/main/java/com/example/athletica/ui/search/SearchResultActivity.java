@@ -20,11 +20,6 @@ import com.example.athletica.ui.profile.ViewProfileActivity;
 import java.util.ArrayList;
 
 
-/*
-This boundary class displays the search results corresponding to each entity (users/facilities/events)
- */
-
-
 public class SearchResultActivity extends AppCompatActivity implements View.OnClickListener {
 
 

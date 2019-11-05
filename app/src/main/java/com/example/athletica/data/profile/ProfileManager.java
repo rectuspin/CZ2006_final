@@ -22,8 +22,5 @@ public class ProfileManager {
         firebaseDatabase = FirebaseDatabase.getInstance();
     }
 
-    //public boolean beingFollowed()
-    //{
 
-    //}
 }

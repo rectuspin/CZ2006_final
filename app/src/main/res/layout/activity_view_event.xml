@@ -87,10 +87,9 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="30dp"
                 android:text="Event Name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:textSize="48sp"
-                 />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt4"
@@ -145,16 +144,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt5" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/txt1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="24dp"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:text="Event Name"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:textSize="48sp"/>-->
 
             <TextView
                 android:id="@+id/end_date"

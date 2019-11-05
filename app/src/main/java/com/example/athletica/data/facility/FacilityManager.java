@@ -8,11 +8,6 @@ import com.example.athletica.data.user.DataManager;
 import com.google.firebase.database.DatabaseReference;
 
 
-/*
-This control class is used for running the functions corresponding to the ViewFacility Activity
- */
-
-
 public class FacilityManager {
 
     String facilityIndex;
@@ -26,9 +21,9 @@ public class FacilityManager {
 
     }
 
-    public void addRating(float submitted_rating){
+    public void addRating(float submitted_rating) {
         DatabaseReference Ratings_DB_Ref = facility.getRatings_DB_Ref();
-        String userid=facility.getUserid();
+        String userid = facility.getUserid();
         String id = Ratings_DB_Ref.push().getKey();
 
         Ratings ratings_;
@@ -39,7 +34,7 @@ public class FacilityManager {
     public boolean addComments(String comment) {
         DatabaseReference Comments_DB_Reference = facility.getComments_DB_Reference();
 
-        String userName= LoginRegisterManager.loggedUser.getProfile().getName();
+        String userName = LoginRegisterManager.loggedUser.getProfile().getName();
         String userid = facility.getUserid();
         String comment_content = comment;
         if (!TextUtils.isEmpty(comment_content)) {

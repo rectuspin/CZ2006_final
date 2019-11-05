@@ -11,11 +11,6 @@ import java.io.IOException;
 import java.util.Locale;
 
 
-
-/*
-Entity class for facility
- */
-
 public class Facility {
 
     Geocoder geocoder;

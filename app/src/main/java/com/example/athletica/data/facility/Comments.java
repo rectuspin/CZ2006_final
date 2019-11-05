@@ -4,7 +4,6 @@ public class Comments {
 
     private String userID;
     private String userName;
-    //private String facilityID;
     private String commentContent;
 
     public Comments() {
@@ -13,8 +12,7 @@ public class Comments {
 
     public Comments(String userID, String userName, String commentContent) {
         this.userID = userID;
-        this.userName=userName;
-        // this.facilityID=facilityID;
+        this.userName = userName;
         this.commentContent = commentContent;
     }
 
