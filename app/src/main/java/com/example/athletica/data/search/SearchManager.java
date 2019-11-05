@@ -2,6 +2,7 @@ package com.example.athletica.data.search;
 
 import android.content.Context;
 
+import com.example.athletica.data.DisplayAll.DisplayController;
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.search.SearchResultActivity;
@@ -13,6 +14,7 @@ public class SearchManager {
 
 
     public DataManager dataManager;
+    Filter filter;
     Context context;
     private ArrayList<String> facilityName = new ArrayList<>(); // names of all the facilities are stored in this list
     private ArrayList<String> facilityIds = new ArrayList<>();
@@ -29,6 +31,7 @@ public class SearchManager {
         this.context = context;
         this.value = value;
         dataManager = new DataManager();
+        filter=new Filter();
     }
 
 
@@ -49,10 +52,12 @@ public class SearchManager {
             @Override
             public void dataLoaded(Object object) {
                 eventMap = ((ArrayList<Map>) object);
+                filter.endEventCheck(eventMap);
                 for (Map<String, String> map : eventMap) {
                     String str1 = map.get("key");
                     String str2 = map.get("name");
                     eventIds.add(str1);
+
                     eventsName.add(str2);
                 }
                 searchResultActivity.init_ListView(eventsName, eventIds, 1);

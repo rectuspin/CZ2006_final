@@ -170,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         displayController = new DisplayController(this, 1);
-        displayController.getFeaturedEvents(this);
+        displayController.getEvents(this);
 
     }
 

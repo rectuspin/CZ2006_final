@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.athletica.data.event.Event;
 import com.example.athletica.data.facility.Facility;
+import com.example.athletica.data.search.Filter;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.home.HomeActivity;
 import com.example.athletica.ui.search.DisplayAll;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class DisplayController {
     Context context;
     DataManager dataManager;
+    Filter filter;
     private String value;
     private ArrayList<String> facilities = new ArrayList<>();
     private ArrayList<String> index = new ArrayList<>();
@@ -48,6 +50,7 @@ public class DisplayController {
         this.context = context;
         this.state = state;
         dataManager = new DataManager();
+        filter=new Filter();
     }
 
     public void getFacilities(final DisplayAll displayAll) {
@@ -67,7 +70,7 @@ public class DisplayController {
             @Override
             public void dataLoaded(Object object) {
                 eventMap = ((ArrayList<Map>) object);
-                endEventCheck(eventMap);
+                filter.endEventCheck(eventMap);
                 for (Map<String, String> map : eventMap) {
                     String str1 = map.get("key");
                     String str2 = map.get("name");
@@ -80,15 +83,15 @@ public class DisplayController {
         }, 100, "");
     }
 
-    public void getFeaturedEvents(final HomeActivity homeActivity) {
+    public void getEvents(final HomeActivity homeActivity) {
         dataManager.getEventKeys(new DataManager.DataStatus() {
             @Override
             public void dataLoaded(Object object) {
                 eventMap = ((ArrayList<Map>) object);
-                endEventCheck(eventMap);
-                sortEvents(eventMap);
+                filter.endEventCheck(eventMap);
+                filter.sortEvents(eventMap);
+                filter.truncateEvents(eventMap,5);
                 for (Map<String, String> map : eventMap) {
-
 
                     String str1 = map.get("key");
                     String str2 = map.get("name");
@@ -98,7 +101,7 @@ public class DisplayController {
 
                 homeActivity.initRecyclerView(1, eventsName, eventIds);
             }
-        }, 4, "");
+        }, 100, "");
     }
 
 
@@ -119,49 +122,49 @@ public class DisplayController {
         }, "");
     }
 
-
-    public void endEventCheck(ArrayList<Map> Emap){
-        SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date mapDate=null;
-        Date currentDate=new Date();
-
-        ArrayList<Map> remove=new ArrayList<>();
-        for (Map<String,String> map:Emap){
-            try {
-                mapDate=dfParse.parse((String) map.get("endDate"));
-                currentDate=dfParse.parse(dfParse.format(currentDate));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if(currentDate.compareTo(mapDate) == 1)
-                remove.add(map);
-        }
-
-        for(Map<String,String> map:remove)
-            Emap.remove(map);
-    }
-
-    public  void sortEvents(ArrayList<Map> Emap){
-        Collections.sort(Emap, new Comparator<Map>() {
-            @Override
-            public int compare(Map map1, Map map2) {
-                SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                Date map1Date=null;
-                Date map2Date=null;
-                try {
-                    map1Date = dfParse.parse((String) map1.get("startDate"));
-                    map2Date = dfParse.parse((String) map2.get("startDate"));
-
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return map1Date.compareTo(map2Date);
-
-            }
-        });
-    }
+//
+//    public void endEventCheck(ArrayList<Map> Emap){
+//        SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+//        Date mapDate=null;
+//        Date currentDate=new Date();
+//
+//        ArrayList<Map> remove=new ArrayList<>();
+//        for (Map<String,String> map:Emap){
+//            try {
+//                mapDate=dfParse.parse((String) map.get("endDate"));
+//                currentDate=dfParse.parse(dfParse.format(currentDate));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//
+//            if(currentDate.compareTo(mapDate) == 1)
+//                remove.add(map);
+//        }
+//
+//        for(Map<String,String> map:remove)
+//            Emap.remove(map);
+//    }
+//
+//    public  void sortEvents(ArrayList<Map> Emap){
+//        Collections.sort(Emap, new Comparator<Map>() {
+//            @Override
+//            public int compare(Map map1, Map map2) {
+//                SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+//                Date map1Date=null;
+//                Date map2Date=null;
+//                try {
+//                    map1Date = dfParse.parse((String) map1.get("startDate"));
+//                    map2Date = dfParse.parse((String) map2.get("startDate"));
+//
+//
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                return map1Date.compareTo(map2Date);
+//
+//            }
+//        });
+//    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
