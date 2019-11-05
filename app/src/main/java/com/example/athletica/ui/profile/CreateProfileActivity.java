@@ -29,6 +29,7 @@ import com.example.athletica.ui.home.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -113,6 +114,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     public void populate(UserProfile profile)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat(databaseBirthdayFormat, Locale.getDefault());
         nameEditText.setText(profile.getName());
         descriptionEditText.setText(profile.getDescription());
         if (profile.getGender().equals("female"))
@@ -120,12 +122,21 @@ public class CreateProfileActivity extends AppCompatActivity {
             ((RadioButton) findViewById(R.id.femaleRadioButton)).setChecked(true);
         }
         birthdayEditText.setText(profile.getBirthdate());
+        try{
+            Date birthdate = sdf.parse(profile.getBirthdate());
+            myCalendar.setTime(birthdate);
+        }
+        catch(ParseException e){
+            e.printStackTrace();
+        }
         followers = profile.getFollowers();
 
         for (String nextSport: profile.getSportPreferences())
         {
-            addNewSportEditText.setText(nextSport);
-            addNewPreference(null);
+            if(!nextSport.equals("N/A")){
+                addNewSportEditText.setText(nextSport);
+                addNewPreference(null);
+            }
         }
     }
 
@@ -179,7 +190,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     private void updateBirthday() {
-        String displayFormat = "dd MMM yyyy";
+        String displayFormat = "yyyy-MM-dd";
         SimpleDateFormat displayDateFormat = new SimpleDateFormat(displayFormat, Locale.getDefault());
 
         birthdayEditText.setText(displayDateFormat.format(myCalendar.getTime()));

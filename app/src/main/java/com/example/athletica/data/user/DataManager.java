@@ -51,7 +51,7 @@ public class DataManager {
 
     public void getProfileByKey(final DataStatus dataStatus, final String profileId) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info").child(profileId);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserProfile profile = dataSnapshot.getValue(UserProfile.class);
