@@ -1,8 +1,6 @@
 package com.example.athletica.data.search;
 
 import android.content.Context;
-
-import com.example.athletica.data.DisplayAll.DisplayController;
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.search.SearchResultActivity;
@@ -62,7 +60,7 @@ public class SearchManager {
                 }
                 searchResultActivity.init_ListView(eventsName, eventIds, 1);
             }
-        }, 20, value);
+        }, value);
 
     }
 

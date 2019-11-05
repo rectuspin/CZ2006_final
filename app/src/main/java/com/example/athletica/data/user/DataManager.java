@@ -84,14 +84,12 @@ public class DataManager {
         });
     }
 
-    public void getEventKeys(final DataStatus dataStatus, final long amount, final String str) {
+    public void getEventKeys(final DataStatus dataStatus, final String str) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("events_info");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Map> eventIds = new ArrayList<>();
-                long amountToDownload = amount;
-                int counter = 0;
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Map<String, String> eventDetails = new HashMap<>();
 
@@ -101,9 +99,6 @@ public class DataManager {
                         eventDetails.put("startDate", data.child("startDate").getValue(String.class));
                         eventDetails.put("endDate", data.child("endDate").getValue(String.class));
                         eventIds.add(eventDetails);
-                        counter++;
-                        if (counter >= amountToDownload)
-                            break;
                     }
                 }
                 dataStatus.dataLoaded(eventIds);

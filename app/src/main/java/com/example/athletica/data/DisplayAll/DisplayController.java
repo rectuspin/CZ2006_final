@@ -28,6 +28,8 @@ public class DisplayController {
     DataManager dataManager;
     Filter filter;
     private String value;
+
+    
     private ArrayList<String> facilities = new ArrayList<>();
     private ArrayList<String> index = new ArrayList<>();
 
@@ -80,7 +82,7 @@ public class DisplayController {
                 displayAll.initRecyclerView(state, eventsName, eventIds);
 
             }
-        }, 100, "");
+        },"");
     }
 
     public void getEvents(final HomeActivity homeActivity) {
@@ -101,7 +103,7 @@ public class DisplayController {
 
                 homeActivity.initRecyclerView(1, eventsName, eventIds);
             }
-        }, 100, "");
+        },  "");
     }
 
 
@@ -121,51 +123,6 @@ public class DisplayController {
             }
         }, "");
     }
-
-//
-//    public void endEventCheck(ArrayList<Map> Emap){
-//        SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-//        Date mapDate=null;
-//        Date currentDate=new Date();
-//
-//        ArrayList<Map> remove=new ArrayList<>();
-//        for (Map<String,String> map:Emap){
-//            try {
-//                mapDate=dfParse.parse((String) map.get("endDate"));
-//                currentDate=dfParse.parse(dfParse.format(currentDate));
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            if(currentDate.compareTo(mapDate) == 1)
-//                remove.add(map);
-//        }
-//
-//        for(Map<String,String> map:remove)
-//            Emap.remove(map);
-//    }
-//
-//    public  void sortEvents(ArrayList<Map> Emap){
-//        Collections.sort(Emap, new Comparator<Map>() {
-//            @Override
-//            public int compare(Map map1, Map map2) {
-//                SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-//                Date map1Date=null;
-//                Date map2Date=null;
-//                try {
-//                    map1Date = dfParse.parse((String) map1.get("startDate"));
-//                    map2Date = dfParse.parse((String) map2.get("startDate"));
-//
-//
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//                return map1Date.compareTo(map2Date);
-//
-//            }
-//        });
-//    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<Facility> sortFacilityByName() {
