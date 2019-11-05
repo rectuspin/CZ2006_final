@@ -1,5 +1,6 @@
 package com.example.athletica.ui.profile;
 
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import android.widget.ViewFlipper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
+import com.example.athletica.data.user.DataManager;
+import com.example.athletica.data.user.UserProfile;
+import com.example.athletica.data.profile.ProfileManager;
 import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.ui.home.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +52,13 @@ public class CreateProfileActivity extends AppCompatActivity {
     private TextView charactersLeftTextView;
     private Date currentDate = new Date();
     private LoginRegisterManager loginRegisterManager;
-    private String validatedName, validatedBirthday;
+    private String validatedName, validatedBirthday, followers;
+
+    private DataManager dataManager;
+    private ProfileManager profileManager;
+    private String index;
+    private UserProfile profile;
+    private boolean editing;
 
 
     @Override
@@ -77,6 +87,46 @@ public class CreateProfileActivity extends AppCompatActivity {
         sportsListView.setAdapter(sportsArrayAdapter);
         sportsListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
+        followsArray.add("");
+        oldUser();
+    }
+
+    public void oldUser() {
+        index = currentUser.getUid();
+        dataManager = new DataManager();
+        profileManager = new ProfileManager(getApplicationContext());
+
+        dataManager.getProfileByKey(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                try {
+                    profile = (UserProfile) object;
+                    profile.setId(index);
+                    populate(profile);
+                    editing = true;
+                } catch (NullPointerException e) {
+                    editing = false;
+                }
+            }
+        }, index);
+    }
+
+    public void populate(UserProfile profile)
+    {
+        nameEditText.setText(profile.getName());
+        descriptionEditText.setText(profile.getDescription());
+        if (profile.getGender().equals("female"))
+        {
+            ((RadioButton) findViewById(R.id.femaleRadioButton)).setChecked(true);
+        }
+        birthdayEditText.setText(profile.getBirthdate());
+        followers = profile.getFollowers();
+
+        for (String nextSport: profile.getSportPreferences())
+        {
+            addNewSportEditText.setText(nextSport);
+            addNewPreference(null);
+        }
     }
 
     public void setUpFlipperAnimation() {
@@ -92,7 +142,10 @@ public class CreateProfileActivity extends AppCompatActivity {
         sexRadioButton = findViewById(sexRadioGroup.getCheckedRadioButtonId());
         String sex = sexRadioButton.getText().toString().toLowerCase();
 
-        loginRegisterManager.saveUserProfile(currentUser.getUid(), validatedName, validatedBirthday, sex, description, sportsArray, followsArray);
+        if (editing)
+            loginRegisterManager.updateUserProfile(currentUser.getUid(), validatedName, validatedBirthday, sex, description, sportsArray, followsArray, followers);
+        else
+            loginRegisterManager.saveUserProfile(currentUser.getUid(), validatedName, validatedBirthday, sex, description, sportsArray, followsArray, followers);
 
         return true;
     }
@@ -119,7 +172,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     public void submit(View view) {
         if (saveData()) {
-            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Profile created/updated successfully!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
         }

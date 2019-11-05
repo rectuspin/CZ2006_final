@@ -15,92 +15,101 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:layout_constraintBottom_toTopOf="@+id/tvBioLabel"
+            app:layout_constraintTop_toTopOf="@+id/tvBioLabel">
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:text="TextView"
-                android:textSize="48sp" />
+                android:layout_marginTop="30dp"
+                android:text="Name"
+                android:textSize="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvEmail"
+                android:id="@+id/tvGenderAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:text="TextView"
-                android:textSize="48sp" />
-
-            <TextView
-                android:id="@+id/tvGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:text="TextView"
-                android:textSize="34sp" />
+                android:layout_marginTop="5dp"
+                android:text="Gender, Age"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
             <TextView
                 android:id="@+id/tvBioLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="15dp"
                 android:labelFor="@+id/tvBio"
                 android:text="@string/bio_header"
-                android:textSize="24sp" />
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenderAge" />
 
             <TextView
                 android:id="@+id/tvBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="TextView"
-                android:textSize="20sp" />
+                android:layout_marginTop="5dp"
+                android:text="Bio"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tvBioLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvBioLabel" />
 
             <TextView
-                android:id="@+id/tvInterestLabel"
+                android:id="@+id/tvInterestsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:labelFor="@+id/tvInterest"
-                android:text="@string/interest_header"
-                android:textSize="24sp" />
+                android:layout_marginTop="15dp"
+                android:labelFor="@+id/tvInterests"
+                android:text="Interests"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBio" />
 
             <TextView
-                android:id="@+id/tvInterest"
+                android:id="@+id/tvInterests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="TextView"
-                android:textSize="20sp" />
+                android:layout_marginTop="5dp"
+                android:text="Interests"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tvInterestsLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvInterestsLabel" />
 
             <TextView
-                android:id="@+id/tvCommingUpLabel"
+                android:id="@+id/tvFollowersLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:labelFor="@+id/tvUpComing"
-                android:text="@string/coming_up_header"
-                android:textSize="24sp" />
+                android:layout_marginTop="15dp"
+                android:text="Followers"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tvInterests"
+                app:layout_constraintTop_toBottomOf="@+id/tvInterests" />
 
             <TextView
-                android:id="@+id/tvUpComing"
+                android:id="@+id/tvFollowers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="TextView" />
+                android:layout_marginTop="5dp"
+                android:text="Followers"
+                app:layout_constraintStart_toStartOf="@+id/tvFollowersLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvFollowersLabel" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
