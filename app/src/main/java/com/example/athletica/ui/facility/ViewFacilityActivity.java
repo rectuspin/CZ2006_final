@@ -136,7 +136,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         DatabaseReference Comments_DB_Reference = facility.getComments_DB_Reference();
-        DatabaseReference Ratings_DB_Reference = facility.getRatings_DB_Ref();
+        final DatabaseReference Ratings_DB_Reference = facility.getRatings_DB_Ref();
 
         Comments_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,7 +147,10 @@ public class ViewFacilityActivity extends AppCompatActivity {
                     commentsList.add(comment);
                 }
                 CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList);
+
                 listViewComments.setAdapter(adapter);
+
+                
             }
 
             @Override
@@ -171,6 +174,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 String rat = String.valueOf(ratingAvg);
                 currentRating.setText("Current rating of this facility is " + rat);
                 ratingRatingBar.setRating(ratingAvg);
+
+
             }
 
             @Override
