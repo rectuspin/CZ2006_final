@@ -1,7 +1,5 @@
 package com.example.athletica.data.search;
 
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,35 +10,35 @@ import java.util.Map;
 
 public class Filter {
 
-    public void endEventCheck(ArrayList<Map> Emap){
+    public void endEventCheck(ArrayList<Map> Emap) {
         SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date mapDate=null;
-        Date currentDate=new Date();
+        Date mapDate = null;
+        Date currentDate = new Date();
 
-        ArrayList<Map> remove=new ArrayList<>();
-        for (Map<String,String> map:Emap){
+        ArrayList<Map> remove = new ArrayList<>();
+        for (Map<String, String> map : Emap) {
             try {
-                mapDate=dfParse.parse((String) map.get("endDate"));
-                currentDate=dfParse.parse(dfParse.format(currentDate));
+                mapDate = dfParse.parse(map.get("endDate"));
+                currentDate = dfParse.parse(dfParse.format(currentDate));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            if(currentDate.compareTo(mapDate) == 1)
+            if (currentDate.compareTo(mapDate) == 1)
                 remove.add(map);
         }
 
-        for(Map<String,String> map:remove)
+        for (Map<String, String> map : remove)
             Emap.remove(map);
     }
 
-    public  void sortEvents(ArrayList<Map> Emap){
+    public void sortEvents(ArrayList<Map> Emap) {
         Collections.sort(Emap, new Comparator<Map>() {
             @Override
             public int compare(Map map1, Map map2) {
                 SimpleDateFormat dfParse = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                Date map1Date=null;
-                Date map2Date=null;
+                Date map1Date = null;
+                Date map2Date = null;
                 try {
                     map1Date = dfParse.parse((String) map1.get("startDate"));
                     map2Date = dfParse.parse((String) map2.get("startDate"));
@@ -49,17 +47,18 @@ public class Filter {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
                 return map1Date.compareTo(map2Date);
 
             }
         });
     }
 
-    public void truncateEvents(ArrayList<Map> Emap,int truncate){
+    public void truncateEvents(ArrayList<Map> Emap, int truncate) {
 
-        if(Emap.size()<truncate)
+        if (Emap.size() < truncate)
             return;
-        while(Emap.size()>truncate)
+        while (Emap.size() > truncate)
             Emap.remove(Emap.size() - 1);
 
 

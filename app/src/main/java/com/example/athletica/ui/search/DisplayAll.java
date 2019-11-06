@@ -28,6 +28,7 @@ public class DisplayAll extends AppCompatActivity {
     private ArrayList<Facility> facilities, sortedFacilties;
     private ImageButton btnSort;
 
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +56,26 @@ public class DisplayAll extends AppCompatActivity {
             sortedFFacilityNames.add(facility.getName());
         }
 
-        if (state != 0) {
-            btnSort.setVisibility(View.GONE);
-        }
 
         btnSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initRecyclerView(state, sortedFFacilityNames, sortedFacilityIndex);
+                switch (state) {
+                    case 0:
+                        initRecyclerView(state, sortedFFacilityNames, sortedFacilityIndex);
+                        btnSort.setClickable(false);
+                        break;
+                    case 1:
+                        displayController.getSortedEvents(DisplayAll.this);
+                        btnSort.setClickable(false);
+                        break;
+                    case 2:
+                        displayController.getSortedUsers(DisplayAll.this);
+                        btnSort.setClickable(false);
+                        break;
+                }
             }
         });
-
 
     }
 
@@ -76,5 +86,4 @@ public class DisplayAll extends AppCompatActivity {
         Layout_mainpage adapter = new Layout_mainpage(this, names, index, id);
         recyclerView.setAdapter(adapter);
     }
-
 }

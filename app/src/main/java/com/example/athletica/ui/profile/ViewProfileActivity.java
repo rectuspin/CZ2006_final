@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.content.Context;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +15,8 @@ import com.example.athletica.data.profile.ProfileManager;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.data.user.UserProfile;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
+import java.util.ArrayList;
 
 public class ViewProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -90,16 +89,15 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         tvInterests.setText(allInterests);
     }
 
-    private void setFollowButton(final String selectedUId)
-    {
+    private void setFollowButton(final String selectedUId) {
         dataManager.getProfileByKey(new DataManager.DataStatus() {
             @Override
             public void dataLoaded(Object object) {
                 currentProfile = (UserProfile) object;
                 currentProfile.setId(profileManager.getCurrentUser());
 
-                for (String nextFollow: currentProfile.getFollows()) {
-                    if(nextFollow.equals(selectedUId))
+                for (String nextFollow : currentProfile.getFollows()) {
+                    if (nextFollow.equals(selectedUId))
                         btnEdit.setText("UNFOLLOW");
                     else
                         btnEdit.setText("FOLLOW");
@@ -108,32 +106,26 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
             }
         }, profileManager.getCurrentUser());
     }
-    public void follow(View view)
-    {
+
+    public void follow(View view) {
         ArrayList<String> newFollows = currentProfile.getFollows();
         String id = selectedProfile.getId();
         String newFollowers;
 
-        if (btnEdit.getText().equals("FOLLOW"))
-        {
+        if (btnEdit.getText().equals("FOLLOW")) {
             newFollows.add(selectedProfile.getId());
             if (selectedProfile.getFollowers() != null) {
                 newFollowers = String.valueOf(Integer.parseInt(selectedProfile.getFollowers()) + 1);
-            }
-            else {
+            } else {
                 newFollowers = "1";
             }
 
             loginRegisterManager.follow(newFollows, id, newFollowers);
             tvFollowers.setText(String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) + 1));
             btnEdit.setText("UNFOLLOW");
-        }
-        else
-        {
-            for (int i = 0; i < newFollows.size(); i++)
-            {
-                if (newFollows.get(i).equals(id))
-                {
+        } else {
+            for (int i = 0; i < newFollows.size(); i++) {
+                if (newFollows.get(i).equals(id)) {
                     newFollows.remove(i);
                     break;
                 }
@@ -145,16 +137,15 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         }
 
     }
+
     @Override
     public void onClick(View view) {
-        String button  = ((ExtendedFloatingActionButton)findViewById(view.getId())).getText().toString();
-        if(button.equals("FOLLOW")) {
+        String button = ((ExtendedFloatingActionButton) findViewById(view.getId())).getText().toString();
+        if (button.equals("FOLLOW")) {
             follow(null);
-        }
-        else if (button.equals("UNFOLLOW")) {
+        } else if (button.equals("UNFOLLOW")) {
             follow(null);
-        }
-        else {
+        } else {
             Intent intent = new Intent(getApplicationContext(), CreateProfileActivity.class);
             startActivity(intent);
             Toast.makeText(this, "Edit profile Selected)", Toast.LENGTH_SHORT).show();

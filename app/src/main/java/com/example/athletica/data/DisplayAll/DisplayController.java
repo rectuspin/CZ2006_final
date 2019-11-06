@@ -2,24 +2,17 @@ package com.example.athletica.data.DisplayAll;
 
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.athletica.data.event.Event;
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.search.Filter;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.home.HomeActivity;
 import com.example.athletica.ui.search.DisplayAll;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Map;
 
 
@@ -29,7 +22,7 @@ public class DisplayController {
     Filter filter;
     private String value;
 
-    
+
     private ArrayList<String> facilities = new ArrayList<>();
     private ArrayList<String> index = new ArrayList<>();
 
@@ -52,11 +45,11 @@ public class DisplayController {
         this.context = context;
         this.state = state;
         dataManager = new DataManager();
-        filter=new Filter();
+        filter = new Filter();
     }
 
     public void getFacilities(final DisplayAll displayAll) {
-        facilityMap = (ArrayList<Facility>) dataManager.readDataAll(context, "");
+        facilityMap = dataManager.readDataAll(context, "");
         for (Facility facility : facilityMap) {
             String str2 = facility.getName();  //parsing facilities and index's in separate lists
             String i = facility.getFacilityIndex();
@@ -82,7 +75,7 @@ public class DisplayController {
                 displayAll.initRecyclerView(state, eventsName, eventIds);
 
             }
-        },"");
+        }, "");
     }
 
     public void getEvents(final HomeActivity homeActivity) {
@@ -92,7 +85,7 @@ public class DisplayController {
                 eventMap = ((ArrayList<Map>) object);
                 filter.endEventCheck(eventMap);
                 filter.sortEvents(eventMap);
-                filter.truncateEvents(eventMap,5);
+                filter.truncateEvents(eventMap, 5);
                 for (Map<String, String> map : eventMap) {
 
                     String str1 = map.get("key");
@@ -103,7 +96,7 @@ public class DisplayController {
 
                 homeActivity.initRecyclerView(1, eventsName, eventIds);
             }
-        },  "");
+        }, "");
     }
 
 
@@ -131,4 +124,72 @@ public class DisplayController {
         return facilities;
     }
 
+
+    public void getSortedEvents(final DisplayAll displayAll) {
+        dataManager.getEventKeys(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                eventMap = ((ArrayList<Map>) object);
+                filter.endEventCheck(eventMap);
+
+
+                for (Map<String, String> map : eventMap) {
+
+                    String str1 = map.get("key");
+                    String str2 = map.get("name");
+                    eventIds.add(str1);
+                    eventsName.add(str2);
+                }
+
+
+            }
+        }, "");
+
+        for (int i = eventsName.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (eventsName.get(j).compareToIgnoreCase(eventsName.get(j + 1)) > -1) {
+                    String tempName = eventsName.get(j);
+                    eventsName.set(j, eventsName.get(j + 1));
+                    eventsName.set(j + 1, tempName);
+
+                    String tempId = eventIds.get(j);
+                    eventIds.set(j, eventIds.get(j + 1));
+                    eventIds.set(j + 1, tempId);
+
+                }
+            }
+        }
+        displayAll.initRecyclerView(1, eventsName, eventIds);
+    }
+
+    public void getSortedUsers(final DisplayAll displayAll) {
+        dataManager.getAllUsers(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                userMap = ((ArrayList<Map>) object);
+                for (Map<String, String> map : userMap) {
+                    String str1 = map.get("key");
+                    String str2 = map.get("name");
+                    userIds.add(str1);
+                    userNames.add(str2);
+                }
+
+
+            }
+        }, "");
+        for (int i = userNames.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (userNames.get(j).compareToIgnoreCase(userNames.get(j + 1)) > -1) {
+                    String tempName = userNames.get(j);
+                    userNames.set(j, userNames.get(j + 1));
+                    userNames.set(j + 1, tempName);
+
+                    String tempId = userIds.get(j);
+                    userIds.set(j, userIds.get(j + 1));
+                    userIds.set(j + 1, tempId);
+                }
+            }
+        }
+        displayAll.initRecyclerView(2, userNames, userIds);
+    }
 }

@@ -194,12 +194,11 @@ public class LoginRegisterManager {
         setLoggedUser();
     }
 
-    public void updateUserProfile(String userId, String name, String birthdate, String sex, String description, ArrayList<String> sports, ArrayList<String> follows, String followers)
-    {
-        if(sports.size()<1){
+    public void updateUserProfile(String userId, String name, String birthdate, String sex, String description, ArrayList<String> sports, ArrayList<String> follows, String followers) {
+        if (sports.size() < 1) {
             sports.add("N/A");
         }
-        if(follows.size() < 1)
+        if (follows.size() < 1)
             follows.add("N/A");
 
         UserProfile userProfile = new UserProfile(name, sex, description, birthdate, sports, follows, followers);
@@ -208,8 +207,7 @@ public class LoginRegisterManager {
         databaseReference.child(userId).setValue(userProfile);
     }
 
-    public void follow(ArrayList<String> follows, String userId, String followers)
-    {
+    public void follow(ArrayList<String> follows, String userId, String followers) {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info");
         databaseReference.child(userId).child("followers").setValue(followers);
         databaseReference.child(loggedUser.getId()).child("follows").setValue(follows);

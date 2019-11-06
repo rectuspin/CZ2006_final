@@ -32,7 +32,7 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.activity_comment_adapter, null, true);
 
-        TextView comment_text = (TextView) listView.findViewById(R.id.comment_text_view);
+        TextView comment_text = listView.findViewById(R.id.comment_text_view);
 
         Comments com = commentsList.get(position);
         comment_text.setText(com.getCommentContent());

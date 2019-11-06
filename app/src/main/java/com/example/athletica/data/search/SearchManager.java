@@ -1,6 +1,7 @@
 package com.example.athletica.data.search;
 
 import android.content.Context;
+
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.search.SearchResultActivity;
@@ -29,12 +30,12 @@ public class SearchManager {
         this.context = context;
         this.value = value;
         dataManager = new DataManager();
-        filter=new Filter();
+        filter = new Filter();
     }
 
 
     public void getFacilities(final SearchResultActivity searchResultActivity) {
-        facilityMap = (ArrayList<Facility>) dataManager.readDataAll(context, value);
+        facilityMap = dataManager.readDataAll(context, value);
         for (Facility facility : facilityMap) {
             String str2 = facility.getName();  //
             String index = facility.getFacilityIndex();
