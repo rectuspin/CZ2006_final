@@ -51,20 +51,29 @@ public class ViewEventActivity extends AppCompatActivity {
         btnJoinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventManager.joinEvent(event, LoginRegisterManager.loggedUser);
+                if(btnJoinEvent.getText().equals("Withdraw")){
+                    eventManager.withdrawFromEvent(event,LoginRegisterManager.loggedUser);
+                }
+                else{
+                    eventManager.joinEvent(event, LoginRegisterManager.loggedUser);
+                }
                 setButton();
-                Toast.makeText(ViewEventActivity.this, event.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ViewEventActivity.this, event.getId(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void setButton() {
         if (!LoginRegisterManager.loggedUser.canJoin(event.getId())) {
-            btnJoinEvent.setClickable(false);
-            btnJoinEvent.setText("Already joined!");
+            btnJoinEvent.setClickable(true);
+            btnJoinEvent.setText("Withdraw");
         } else if (!event.canBeJoined()) {
             btnJoinEvent.setClickable(false);
             btnJoinEvent.setText("Event is full");
+        }
+        else{
+            btnJoinEvent.setClickable(true);
+            btnJoinEvent.setText("Join Event");
         }
         btnJoinEvent.setVisibility(Button.VISIBLE);
     }

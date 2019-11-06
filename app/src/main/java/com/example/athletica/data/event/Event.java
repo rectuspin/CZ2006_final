@@ -87,4 +87,13 @@ public class Event {
                 .child("currentParticipants");
         databaseReference.setValue(currentParticipants);
     }
+
+    public void removeParticipant(){
+        currentParticipants--;
+        DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child("events_info")
+                .child(id)
+                .child("currentParticipants");
+        databaseReference.setValue(currentParticipants);
+    }
 }
