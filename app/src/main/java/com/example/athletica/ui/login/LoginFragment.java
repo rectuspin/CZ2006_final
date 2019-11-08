@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
     private Button btnLogin;
     private EditText etEmail, etPassword;
     private LoginRegisterManager loginRegisterManager;
+    private ImageView logo;
 
 
     @Nullable
@@ -35,6 +37,8 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
         etPassword = view.findViewById(R.id.et_password);
         tvState = view.findViewById(R.id.stateTextView);
         btnLogin = view.findViewById(R.id.action_login);
+        logo=view.findViewById(R.id.logoImageView);
+        logo.setImageResource(R.drawable.logoimage);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
