@@ -2,6 +2,7 @@ package com.example.athletica.ui.facility;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,10 +25,13 @@ import com.example.athletica.ui.maps.MapsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 
 public class ViewFacilityActivity extends AppCompatActivity {
@@ -49,6 +53,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private Button sendComment;
     private ListView listViewComments;
     private List<Comments> commentsList;
+    private String rating_userid;
+    private float userRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +119,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 //addRatings();
                 float submitted_rating = ratingRatingBar.getRating();
                 facilityManager.addRating(submitted_rating);
-                ratingDisplayTextView.setText("Your rating is :" + submitted_rating);
-
+//                ratingDisplayTextView.setText("Your rating is :" + submitted_rating);
+                ratingDisplayTextView.setText("Rating submitted!");
             }
         });
 
@@ -145,8 +151,10 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 for (DataSnapshot commentsSnapshot : dataSnapshot.getChildren()) {
                     Comments comment = commentsSnapshot.getValue(Comments.class);
                     commentsList.add(comment);
+                    rating_userid=comment.getUserID();
+                    userRating=comment.getUserRating();
                 }
-                CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList);
+                CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList,userRating);
 
                 listViewComments.setAdapter(adapter);
 
@@ -169,10 +177,11 @@ public class ViewFacilityActivity extends AppCompatActivity {
                     Ratings rating = ratingsSnapshot.getValue(Ratings.class);
                     sum += rating.getRatingContent();
                     numChild = dataSnapshot.getChildrenCount();
+
                 }
                 ratingAvg = (float) sum / numChild;
                 String rat = String.valueOf(ratingAvg);
-                currentRating.setText("Current rating of this facility is " + rat);
+//                currentRating.setText("Current rating of this facility is " + rat);
                 ratingRatingBar.setRating(ratingAvg);
 
 

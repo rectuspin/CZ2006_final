@@ -1,6 +1,8 @@
 package com.example.athletica.ui.facility;
 
 import android.app.Activity;
+import android.media.Rating;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,17 @@ import androidx.annotation.Nullable;
 
 import com.example.athletica.R;
 import com.example.athletica.data.facility.Comments;
+import com.example.athletica.data.facility.Facility;
+import com.example.athletica.data.facility.Ratings;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class CommentAdapter extends ArrayAdapter<Comments> {
 
@@ -24,13 +33,13 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
     private Activity context;
     private List<Comments> commentsList;
     private float userRating;
-    private String userName;
 
 
-    public CommentAdapter(Activity context, List<Comments> commentsList) {
+    public CommentAdapter(Activity context, List<Comments> commentsList,float userRating) {
         super(context, R.layout.activity_comment_adapter, commentsList);
         this.context = context;
         this.commentsList = commentsList;
+        this.userRating=userRating;
     }
 
     public void addUserRating(float userRating){
@@ -42,15 +51,37 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.activity_comment_adapter, null, true);
+        //DatabaseReference Rating_DB_Reference=FirebaseDatabase.getInstance().getReference("facility_ratings").child(this.rating_userid).child("ratingContent");
 
         TextView comment_text = (TextView) listView.findViewById(R.id.comment_text_view);
         RatingBar ratingBar=(RatingBar) listView.findViewById((R.id.ratingBar));
         TextView userName=(TextView)listView.findViewById(R.id.comment_user_name);
 
-        ratingBar.setRating(this.userRating);
-        userName.setText(this.userName);
+
+
+//        // Read from the database
+//        Rating_DB_Reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                //userRating=dataSnapshot,getValue(float.class);
+//               userRating = dataSnapshot.getValue(float.class);
+//                //userRating= ratings.getRatingContent();
+//                //Log.d(TAG, "Value is: " + value);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
         Comments com = commentsList.get(position);
         comment_text.setText(com.getCommentContent());
+
+        ratingBar.setRating(this.userRating);
+        userName.setText(com.getUserName());
 
         return listView;
 

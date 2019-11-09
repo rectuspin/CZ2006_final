@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-94dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-58dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -137,7 +137,6 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
 
-                android:text="Your rating appears here"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar" />
 
@@ -205,7 +204,6 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="204dp"
                 android:layout_marginTop="2dp"
-                android:text="Current rating of this facility"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/facility_rating_bar" />
 
