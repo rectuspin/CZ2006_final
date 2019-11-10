@@ -54,8 +54,8 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private ListView listViewComments;
     private List<Comments> commentsList;
     private String rating_userid;
-    private float userRating=0;
-
+    private float userRating;
+    private List<Ratings> ratingsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +78,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
         addcomment = findViewById(R.id.add_comment);
         sendComment = (Button) findViewById(R.id.send);
         commentsList = new ArrayList<>();
-
+        ratingsList=new ArrayList<>();
 
         //getting data and methods
 
@@ -124,10 +124,12 @@ public class ViewFacilityActivity extends AppCompatActivity {
             }
         });
 
-
+        //add comment
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Boolean result = facilityManager.addComments(addcomment.getText().toString());
                 if (result)
                     addcomment.setText("");
@@ -143,19 +145,19 @@ public class ViewFacilityActivity extends AppCompatActivity {
         super.onStart();
         DatabaseReference Comments_DB_Reference = facility.getComments_DB_Reference();
         DatabaseReference Ratings_DB_Reference = facility.getRatings_DB_Ref();
-        Ratings_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
+
+        DatabaseReference rat = FirebaseDatabase.getInstance().getReference("facility_ratings").child(facilityIndex);
+        rat.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ratingsList.clear();
                 for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
                     Ratings rating = Snapshot.getValue(Ratings.class);
-                    if (facility.getUserid() == rating.getUserID())
-                        userRating = rating.getRatingContent();
+                   ratingsList.add(rating);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
@@ -170,7 +172,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
                     //userRating=comment.getUserRating();
                 }
 
-                CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList,userRating);
+                CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList,ratingsList);
 
                 listViewComments.setAdapter(adapter);
             }
@@ -197,8 +199,6 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 String rat = String.valueOf(ratingAvg);
 //                currentRating.setText("Current rating of this facility is " + rat);
                 ratingRatingBar.setRating(ratingAvg);
-
-
             }
 
             @Override

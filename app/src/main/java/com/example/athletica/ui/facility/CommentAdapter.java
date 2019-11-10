@@ -33,20 +33,20 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
 
     private Activity context;
     private List<Comments> commentsList;
+    private List<Ratings> ratingsList;
     private float userRating;
 
-
-    public CommentAdapter(Activity context, List<Comments> commentsList,float userRating) {
+    public CommentAdapter(Activity context, List<Comments> commentsList,List<Ratings> ratingsList) {
         super(context, R.layout.activity_comment_adapter, commentsList);
         this.context = context;
         this.commentsList = commentsList;
-        this.userRating=userRating;
+        this.ratingsList=ratingsList;
     }
 
-    public void addUserRating(float userRating){
-        this.userRating=userRating;
-
-    }
+//    public void addUserRating(float userRating){
+//        this.userRating=userRating;
+//
+//    }
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -60,7 +60,13 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
 
         Comments com = commentsList.get(position);
         comment_text.setText(com.getCommentContent());
+        for (Ratings r :this.ratingsList){
+            if((r.getUserID()).equals(com.getUserID()))
+                this.userRating=r.getRatingContent();
+        }
 
+//        if(ratingsList.get(position).getUserID()==com.getUserID())
+//            userRating=ratingsList.get(position).getRatingContent();
         ratingBar.setRating(this.userRating);
         userName.setText(com.getUserName());
 

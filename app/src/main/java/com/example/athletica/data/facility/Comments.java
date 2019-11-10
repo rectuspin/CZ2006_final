@@ -7,6 +7,7 @@ public class Comments {
     private String commentContent;
     private float userRating;
 
+
     public Comments() {
 
     }
