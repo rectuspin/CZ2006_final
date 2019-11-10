@@ -54,7 +54,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private ListView listViewComments;
     private List<Comments> commentsList;
     private String rating_userid;
-    private float userRating;
+    private float userRating=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,15 +135,30 @@ public class ViewFacilityActivity extends AppCompatActivity {
                     Toast.makeText(ViewFacilityActivity.this, "Please type the content", Toast.LENGTH_SHORT);
             }
         });
-
     }
 
+    //View comments
     @Override
     protected void onStart() {
         super.onStart();
         DatabaseReference Comments_DB_Reference = facility.getComments_DB_Reference();
-        final DatabaseReference Ratings_DB_Reference = facility.getRatings_DB_Ref();
+        DatabaseReference Ratings_DB_Reference = facility.getRatings_DB_Ref();
+        Ratings_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
+                    Ratings rating = Snapshot.getValue(Ratings.class);
+                    if (facility.getUserid() == rating.getUserID())
+                        userRating = rating.getRatingContent();
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
         Comments_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -152,13 +167,12 @@ public class ViewFacilityActivity extends AppCompatActivity {
                     Comments comment = commentsSnapshot.getValue(Comments.class);
                     commentsList.add(comment);
                     rating_userid=comment.getUserID();
-                    userRating=comment.getUserRating();
+                    //userRating=comment.getUserRating();
                 }
+
                 CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList,userRating);
 
                 listViewComments.setAdapter(adapter);
-
-                
             }
 
             @Override

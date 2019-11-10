@@ -1,6 +1,7 @@
 package com.example.athletica.ui.facility;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.Rating;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,26 +58,6 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
         RatingBar ratingBar=(RatingBar) listView.findViewById((R.id.ratingBar));
         TextView userName=(TextView)listView.findViewById(R.id.comment_user_name);
 
-
-
-//        // Read from the database
-//        Rating_DB_Reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                //userRating=dataSnapshot,getValue(float.class);
-//               userRating = dataSnapshot.getValue(float.class);
-//                //userRating= ratings.getRatingContent();
-//                //Log.d(TAG, "Value is: " + value);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
         Comments com = commentsList.get(position);
         comment_text.setText(com.getCommentContent());
 
