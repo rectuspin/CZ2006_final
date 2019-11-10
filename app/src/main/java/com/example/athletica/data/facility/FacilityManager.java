@@ -34,7 +34,6 @@ public class FacilityManager {
         this.facilityIndex = facilityIndex;
         dataManager = new DataManager();
         facility = dataManager.readIndex(context, facilityIndex);
-
     }
 
     public void addRating(float submitted_rating) {
@@ -54,50 +53,15 @@ public class FacilityManager {
         String userid = facility.getUserid();
         String comment_content = comment;
 
-//        DatabaseReference rat = FirebaseDatabase.getInstance().getReference("facility_ratings").child(facilityIndex);
-//        rat.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
-//                    Ratings rating = Snapshot.getValue(Ratings.class);
-//                    if(userid.equals(rating.getUserID())){userRating = rating.getRatingContent();}
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-
         if (!TextUtils.isEmpty(comment_content)) {
             String id = Comments_DB_Reference.push().getKey();
 
-//            Comments_DB_Reference.child(facilityIndex).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    commentsList.clear();
-//                    for (DataSnapshot commentsSnapshot : dataSnapshot.getChildren()) {
-//                        Comments comment = commentsSnapshot.getValue(Comments.class);
-//                        if(comment.getUserID()==userid)
-//                            Comments_DB_Reference.child(facilityIndex).orderByChild("").equalTo(userID).setValue(comments_);
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-
-            Comments comments_ = new Comments(userid, userName, comment_content,userRating);
+            Comments comments_ = new Comments(userid, userName, comment_content);
             Comments_DB_Reference.child(facilityIndex).child(id).setValue(comments_);
             return true;
 
         }
         return false;
 
-
     }
-
 }

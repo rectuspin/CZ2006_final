@@ -53,8 +53,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private Button sendComment;
     private ListView listViewComments;
     private List<Comments> commentsList;
-    private String rating_userid;
-    private float userRating;
+
     private List<Ratings> ratingsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,8 +167,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 for (DataSnapshot commentsSnapshot : dataSnapshot.getChildren()) {
                     Comments comment = commentsSnapshot.getValue(Comments.class);
                     commentsList.add(comment);
-                    rating_userid=comment.getUserID();
-                    //userRating=comment.getUserRating();
+
                 }
 
                 CommentAdapter adapter = new CommentAdapter(ViewFacilityActivity.this, commentsList,ratingsList);

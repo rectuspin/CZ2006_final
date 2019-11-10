@@ -16,17 +16,9 @@ import androidx.annotation.Nullable;
 
 import com.example.athletica.R;
 import com.example.athletica.data.facility.Comments;
-import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.facility.Ratings;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 public class CommentAdapter extends ArrayAdapter<Comments> {
 
@@ -43,16 +35,10 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
         this.ratingsList=ratingsList;
     }
 
-//    public void addUserRating(float userRating){
-//        this.userRating=userRating;
-//
-//    }
-
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.activity_comment_adapter, null, true);
-        //DatabaseReference Rating_DB_Reference=FirebaseDatabase.getInstance().getReference("facility_ratings").child(this.rating_userid).child("ratingContent");
 
         TextView comment_text = (TextView) listView.findViewById(R.id.comment_text_view);
         RatingBar ratingBar=(RatingBar) listView.findViewById((R.id.ratingBar));
@@ -65,8 +51,6 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
                 this.userRating=r.getRatingContent();
         }
 
-//        if(ratingsList.get(position).getUserID()==com.getUserID())
-//            userRating=ratingsList.get(position).getRatingContent();
         ratingBar.setRating(this.userRating);
         userName.setText(com.getUserName());
 
