@@ -69,13 +69,13 @@ public class ViewFacilityActivity extends AppCompatActivity {
         tvAddress = findViewById(R.id.facility_address);
 
 
-        submitButton = (Button) findViewById(R.id.submit_button);
-        ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
-        currentRating = (TextView) findViewById(R.id.current_rating);
+        submitButton = findViewById(R.id.submit_button);
+        ratingDisplayTextView = findViewById(R.id.rating_display_text_View);
+        currentRating = findViewById(R.id.current_rating);
 
-        listViewComments = (ListView) findViewById(R.id.list_view_comment);
+        listViewComments = findViewById(R.id.list_view_comment);
         addcomment = findViewById(R.id.add_comment);
-        sendComment = (Button) findViewById(R.id.send);
+        sendComment = findViewById(R.id.send);
         commentsList = new ArrayList<>();
         ratingsList=new ArrayList<>();
 
@@ -193,7 +193,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
                     numChild = dataSnapshot.getChildrenCount();
 
                 }
-                ratingAvg = (float) sum / numChild;
+                ratingAvg = sum / numChild;
                 String rat = String.valueOf(ratingAvg);
 //                currentRating.setText("Current rating of this facility is " + rat);
                 ratingRatingBar.setRating(ratingAvg);

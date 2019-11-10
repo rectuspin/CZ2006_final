@@ -21,10 +21,10 @@ import android.widget.ViewFlipper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
+import com.example.athletica.data.account.LoginRegisterManager;
+import com.example.athletica.data.profile.ProfileManager;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.data.user.UserProfile;
-import com.example.athletica.data.profile.ProfileManager;
-import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.ui.home.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -112,28 +112,24 @@ public class CreateProfileActivity extends AppCompatActivity {
         }, index);
     }
 
-    public void populate(UserProfile profile)
-    {
+    public void populate(UserProfile profile) {
         SimpleDateFormat sdf = new SimpleDateFormat(databaseBirthdayFormat, Locale.getDefault());
         nameEditText.setText(profile.getName());
         descriptionEditText.setText(profile.getDescription());
-        if (profile.getGender().equals("female"))
-        {
+        if (profile.getGender().equals("female")) {
             ((RadioButton) findViewById(R.id.femaleRadioButton)).setChecked(true);
         }
         birthdayEditText.setText(profile.getBirthdate());
-        try{
+        try {
             Date birthdate = sdf.parse(profile.getBirthdate());
             myCalendar.setTime(birthdate);
-        }
-        catch(ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         followers = profile.getFollowers();
 
-        for (String nextSport: profile.getSportPreferences())
-        {
-            if(!nextSport.equals("N/A")){
+        for (String nextSport : profile.getSportPreferences()) {
+            if (!nextSport.equals("N/A")) {
                 addNewSportEditText.setText(nextSport);
                 addNewPreference(null);
             }

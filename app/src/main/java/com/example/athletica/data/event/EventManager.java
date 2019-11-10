@@ -116,7 +116,17 @@ public class EventManager {
         if (event.canBeJoined() && user.canJoin(event.getId())) {
             event.addNewParticipant();
             user.addEventToList(event.getId());
-            Toast.makeText(context, "Participant added!", Toast.LENGTH_SHORT).show();
+            Log.i("Join event", "New user joined event!");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean withdrawFromEvent(Event event, User user){
+       if(!user.canJoin(event.getId())) {
+            event.removeParticipant();
+            user.removeEventFromList(event.getId());
             Log.i("Join event", "New user joined event!");
             return true;
         } else {

@@ -44,8 +44,10 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.v("view all running", mNames.toString());
+
         holder.txt1.setText(mNames.get(position));
         holder.txt2.setText(String.valueOf(position));
+
         holder.txt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +67,9 @@ public class Layout_mainpage extends RecyclerView.Adapter<Layout_mainpage.ViewHo
 
             }
         });
+
     }
+
 
     @Override
     public int getItemCount() {

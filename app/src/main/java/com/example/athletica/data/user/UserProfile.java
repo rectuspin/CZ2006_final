@@ -36,43 +36,51 @@ public class UserProfile {
         return gender;
     }
 
-    public String getFollowers() { return followers; }
+    public String getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(String followers) {
+        this.followers = followers;
+    }
 
     public String getBirthdate() {
         return birthdate;
     }
 
-    public String getId() { return id; }
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
-    }
-
-    public ArrayList<String> getSportPreferences() {
-        return sportPreferences;
-    }
-
-    public ArrayList<String> getFollows() { return follows; }
-
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setFollowers( String followers ) { this.followers = followers; }
+    public ArrayList<String> getSportPreferences() {
+        return sportPreferences;
+    }
 
     public void setSportPreferences(ArrayList<String> sportPreferences) {
         this.sportPreferences = sportPreferences;
     }
 
-    public void setFollows(ArrayList<String> follows) {
-        this.follows = follows;
+    public ArrayList<String> getFollows() {
+        return follows;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFollows(ArrayList<String> follows) {
+        this.follows = follows;
     }
 }

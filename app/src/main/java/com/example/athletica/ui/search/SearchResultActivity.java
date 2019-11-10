@@ -32,10 +32,17 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     private Intent intent;
 
 
+   private TextView facilityText,eventText,userText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+
+        facilityText=findViewById(R.id.TextViewFacility);
+        eventText=findViewById(R.id.TextViewEvent);
+        userText=findViewById(R.id.TextViewUser);
 
         TextView viewAllText_facilities = findViewById(R.id.button1);
         viewAllText_facilities.setOnClickListener(this);
@@ -82,6 +89,9 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
 
 
         if (id == 0) {
+            if(names.isEmpty())
+                facilityText.setText("No Matching Facilities Found");
+
             rvFacility.setAdapter(arrayAdapter);
             rvFacility.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -92,6 +102,10 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 }
             });
         } else if (id == 1) {
+
+            if(names.isEmpty())
+                eventText.setText("No Matching Events Found");
+
             rvEvents.setAdapter(arrayAdapter);
             rvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -102,6 +116,10 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 }
             });
         } else {
+
+            if(names.isEmpty())
+                userText.setText("No Matching Users Found");
+
             rvUsers.setAdapter(arrayAdapter);
             rvUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

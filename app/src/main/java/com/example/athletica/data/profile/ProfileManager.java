@@ -19,8 +19,7 @@ public class ProfileManager {
     }
 
 
-    public String getCurrentUser()
-    {
+    public String getCurrentUser() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return currentUser.getUid();
     }

@@ -78,4 +78,12 @@ public class User {
         databaseReference.setValue(eventsJoined);
     }
 
+    public void removeEventFromList(String eventKey){
+        if(eventsJoined.contains(eventKey)){
+            eventsJoined.remove(eventKey);
+            DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_events").child(id);
+            databaseReference.setValue(eventsJoined);
+        }
+    }
+
 }
