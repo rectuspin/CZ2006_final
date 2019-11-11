@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-356dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-75dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
                 android:numStars="5"
                 android:stepSize="0.5"
@@ -40,7 +40,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@raw/i0"></ImageView>
-
 
             <TextView
                 android:id="@+id/facilities_offered"
@@ -134,7 +133,7 @@
                 android:layout_width="166dp"
                 android:layout_height="25dp"
 
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
 
                 app:layout_constraintStart_toStartOf="parent"
@@ -142,26 +141,25 @@
 
             <Button
                 android:id="@+id/submit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="30dp"
+                android:layout_width="76dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="32dp"
                 android:text="SUBMIT"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/send"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/facility_rating_bar"
                 app:layout_constraintTop_toBottomOf="@+id/website" />
 
             <EditText
                 android:id="@+id/add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="237dp"
+                android:layout_height="46dp"
                 android:layout_centerVertical="true"
-
-                android:layout_marginStart="24dp"
-
-
-                android:layout_marginTop="64dp"
-
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="28dp"
                 android:ems="10"
+                android:hint="Enter your comment here"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rating_display_text_View"
@@ -169,17 +167,20 @@
 
             <Button
                 android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="8dp"
+                android:layout_width="76dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:text="SEND"
+                android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/add_comment"
 
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.36"
+                app:layout_constraintStart_toEndOf="@+id/add_comment"
                 app:layout_constraintTop_toBottomOf="@+id/submit_button"
-                app:layout_constraintVertical_bias="0.219" />
+                app:layout_constraintVertical_bias="0.122" />
 
             <view
                 android:id="@+id/list_view_comment"
