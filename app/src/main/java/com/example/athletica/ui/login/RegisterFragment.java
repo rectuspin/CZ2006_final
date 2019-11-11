@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.athletica.R;
 import com.example.athletica.data.account.LoginRegisterManager;
+import com.example.athletica.data.account.NetworkStatus;
 
 public class RegisterFragment extends CustomFragment implements View.OnClickListener {
 
@@ -33,19 +35,16 @@ public class RegisterFragment extends CustomFragment implements View.OnClickList
         etConfrimPassword = view.findViewById(R.id.etConfirmPassword);
         btnRegister = view.findViewById(R.id.action_register);
 
-        btnRegister.setOnClickListener(this);
+        networkCheck();
 
         return view;
     }
 
+
     @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        if (v.getId() == R.id.action_register) {
-            register();
-        }
-
-
+    public void onResume() {
+        super.onResume();
+        networkCheck();
     }
 
     private void register() {
@@ -59,6 +58,25 @@ public class RegisterFragment extends CustomFragment implements View.OnClickList
         // Validates the user credentials and register the user into the database
         if (loginRegisterManager.validateLoginRegisterInput(email, password)) {
             loginRegisterManager.register(email, password, confirmPassword);
+        }
+    }
+
+    private void networkCheck(){
+        if(!NetworkStatus.isConnected(getActivity())){
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "You are not connected to the Internet. Connect and restart the app!",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    register();
+                }
+            });
         }
     }
 

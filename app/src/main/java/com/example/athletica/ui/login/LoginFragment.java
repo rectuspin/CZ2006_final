@@ -8,12 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.athletica.R;
 import com.example.athletica.data.account.LoginRegisterManager;
+import com.example.athletica.data.account.NetworkStatus;
 
 
 public class LoginFragment extends CustomFragment implements View.OnClickListener {
@@ -40,16 +42,29 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
         logo=view.findViewById(R.id.logoImageView);
         logo.setImageResource(R.drawable.logoimage);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+        networkCheck();
 
         return view;
     }
 
+    private void networkCheck(){
+        if(!NetworkStatus.isConnected(getActivity())){
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "You are not connected to the Internet. Connect and restart the app!",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    login();
+                }
+            });
+        }
+    }
 
     private void login() {
         // Retrieve the user's input
@@ -60,5 +75,11 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
         if (loginRegisterManager.validateLoginRegisterInput(email, password))
             loginRegisterManager.login(email, password);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        networkCheck();
     }
 }

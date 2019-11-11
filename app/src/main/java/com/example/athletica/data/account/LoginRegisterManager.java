@@ -1,8 +1,12 @@
 package com.example.athletica.data.account;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Toast;
@@ -66,6 +70,7 @@ public class LoginRegisterManager {
         }, FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
+
     public void register(String email, final String password, final String confirmPassword) {
         if (password.equals(confirmPassword)) {
             progressDialog.setMessage("Registering account...");
@@ -80,6 +85,7 @@ public class LoginRegisterManager {
                                 Intent intent = new Intent(context, CreateProfileActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
+                                ((Activity) context).finish();
                             } else {
                                 Toast.makeText(context, "Could not create account! Try again later.", Toast.LENGTH_SHORT).show();
                                 FirebaseException e = (FirebaseException) task.getException();
@@ -107,6 +113,7 @@ public class LoginRegisterManager {
                             Intent intent = new Intent(context, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
+                            ((Activity) context).finish();
                         } else {
                             FirebaseAuthException e = (FirebaseAuthException) task.getException();
                             Toast.makeText(context, "Invalid e-mail / password!", Toast.LENGTH_SHORT).show();

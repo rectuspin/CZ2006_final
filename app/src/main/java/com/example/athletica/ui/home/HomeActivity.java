@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.athletica.R;
 import com.example.athletica.data.DisplayAll.DisplayController;
+import com.example.athletica.data.account.NetworkStatus;
 import com.example.athletica.data.event.Event;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.ui.event.CreateEventActivity;
@@ -50,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        networkCheck();
         btnMenu = findViewById(R.id.action_menu);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view_home);
@@ -85,6 +89,18 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private void networkCheck(){
+        if(!NetworkStatus.isConnected(this)){
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            Toast.makeText(getApplicationContext(), "You are not connected to the Internet. Connect and restart the app!", Toast.LENGTH_LONG).show();
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+    }
+
+
     @Override
     public void onBackPressed() {
         if (this.drawer.isDrawerOpen(GravityCompat.END))
@@ -96,6 +112,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        networkCheck();
         super.onResume();
         // Uncheck navigation drawer menu item
         for (int i = 0; i < navigationView.getMenu().size(); i++) {
