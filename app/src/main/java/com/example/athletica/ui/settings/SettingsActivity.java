@@ -34,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
             switch (preference.getKey()) {
                 case "change_password":
                     getActivity().startActivity(new Intent(getContext(), ChangePasswordActivity.class));
-
+                    return true;
                 case "logout":
                     LoginRegisterManager loginRegisterManager = new LoginRegisterManager(getContext());
                     if (loginRegisterManager.isLoggedIn()) {
