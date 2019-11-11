@@ -8,6 +8,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.athletica.R;
 import com.example.athletica.data.account.LoginRegisterManager;
+import com.example.athletica.ui.home.HomeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -34,7 +35,8 @@ public class SettingsActivity extends AppCompatActivity {
             switch (preference.getKey()) {
                 case "change_password":
                     getActivity().startActivity(new Intent(getContext(), ChangePasswordActivity.class));
-
+                    getActivity().finish();
+                    return true;
                 case "logout":
                     LoginRegisterManager loginRegisterManager = new LoginRegisterManager(getContext());
                     if (loginRegisterManager.isLoggedIn()) {

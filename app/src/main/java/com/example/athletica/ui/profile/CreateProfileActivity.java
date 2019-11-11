@@ -182,6 +182,7 @@ public class CreateProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Profile created/updated successfully!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
