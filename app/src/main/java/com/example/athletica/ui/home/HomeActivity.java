@@ -69,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, SearchResultActivity.class);
                 intent.putExtra("query", etSearch.getText().toString());
                 startActivity(intent);
+                finish();
                 return true;
             }
         });
@@ -96,7 +97,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         // Uncheck navigation drawer menu item
         for (int i = 0; i < navigationView.getMenu().size(); i++) {
             if (navigationView.getMenu().getItem(i).isChecked())
@@ -117,18 +117,21 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_create_event:
                         item.setChecked(false);
                         startActivity(new Intent(HomeActivity.this, CreateEventActivity.class));
+                        finish();
                         drawer.closeDrawers();
                         return true;
 
                     case R.id.nav_view_profile:
                         item.setChecked(false);
                         startActivity(new Intent(HomeActivity.this, ViewProfileActivity.class));
+                        finish();
                         drawer.closeDrawers();
                         return true;
 
                     case R.id.nav_settings:
                         item.setChecked(false);
                         startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+                        finish();
                         drawer.closeDrawers();
                         return true;
 
