@@ -100,7 +100,7 @@ public class ViewEventActivity extends AppCompatActivity {
         tvEventStartDate.setText(event.getStartDate());
         tvEventEndDate.setText(event.getEndDate());
         tvEventCapacity.setText(String.valueOf(event.getMaxParticipants()));
-        tvEventPrice.setText(String.valueOf(event.getPrice()));
+        tvEventPrice.setText("$ "+String.valueOf(event.getPrice()));
         tvEventOrganiser.setText(event.getCreatedBy());
     }
 

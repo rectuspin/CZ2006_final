@@ -14,7 +14,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/create_event"
-        android:textColor="@android:color/black"
         android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -202,24 +201,15 @@
                     android:layout_weight="0.5"
                     android:orientation="vertical">
 
-                    <CheckBox
-                        android:id="@+id/cb_paid_event"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Paid Event" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/input_layout_price"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="24dp"
                         android:hint="Price"
-                        android:visibility="invisible"
                         app:boxBackgroundColor="@android:color/transparent">
 
                         <EditText
@@ -228,7 +218,6 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="0dp"
                             android:layout_marginEnd="0dp"
-                            android:ems="10"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 

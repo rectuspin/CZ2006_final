@@ -32,7 +32,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String displayDateFormat = "dd/MM/yyyy HH:mm";
     private SimpleDateFormat sdf = new SimpleDateFormat(displayDateFormat, Locale.getDefault());
     private EditText etName, etDescription, etDisplne, etLocation, etMaxParticipants, etStartDate, etEndDate, etPrice;
-    private CheckBox cbIsPaid;
+    //private CheckBox cbIsPaid;
     private EventManager eventManager;
     private ExtendedFloatingActionButton btnSubmit;
     private TextInputLayout priceTextInputLayout;
@@ -54,23 +54,23 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         etMaxParticipants = findViewById(R.id.et_event_max_participants);
         etStartDate = findViewById(R.id.et_event_start_date);
         etEndDate = findViewById(R.id.et_event_end_date);
-        cbIsPaid = findViewById(R.id.cb_paid_event);
+        //cbIsPaid = findViewById(R.id.cb_paid_event);
         etPrice = findViewById(R.id.et_price);
         priceTextInputLayout = findViewById(R.id.input_layout_price);
         btnSubmit = findViewById(R.id.action_create_event);
 
-        // Show the price edit text only when paid event check box is checked
-        cbIsPaid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    priceTextInputLayout.setVisibility(View.VISIBLE);
-                else {
-                    priceTextInputLayout.setVisibility(View.INVISIBLE);
-                    hideKeyboard(etPrice);
-                }
-            }
-        });
+//        // Show the price edit text only when paid event check box is checked
+//        cbIsPaid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked)
+//                    priceTextInputLayout.setVisibility(View.VISIBLE);
+//                else {
+//                    priceTextInputLayout.setVisibility(View.INVISIBLE);
+//                    hideKeyboard(etPrice);
+//                }
+//            }
+//        });
 
         etStartDate.setOnClickListener(this);
         etEndDate.setOnClickListener(this);
