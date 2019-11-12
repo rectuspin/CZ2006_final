@@ -2,6 +2,7 @@ package com.example.athletica.ui.event;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -130,6 +131,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         }
 
         datePickerDialog.show();
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
     }
 
 

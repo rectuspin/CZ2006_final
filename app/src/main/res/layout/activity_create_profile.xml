@@ -86,20 +86,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/nextButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="360dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="16dp"
-
+            android:gravity="center"
             android:onClick="next"
             android:text="Next"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/magenta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/birthdayEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/leftCharactersTextView" />
 
         <EditText
             android:id="@+id/nameEditText"
@@ -148,17 +150,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/submitButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="47dp"
-
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/magenta"
             android:onClick="submit"
             android:text="Submit"
-            android:textColor="#FFFFFF"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

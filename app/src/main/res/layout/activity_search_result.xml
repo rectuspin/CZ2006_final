@@ -31,6 +31,7 @@
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="Facilities"
+                    android:textColor="@color/purple"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -50,7 +51,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
                     android:text="View All"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/magenta"
                     android:textSize="10sp" />
 
                 <TextView
@@ -60,6 +61,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Events"
+                    android:textColor="@color/purple"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -70,12 +72,6 @@
                     android:layout_marginTop="10dp"></ListView>
 
 
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/rvEvent"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="10dp" />-->
-
 
                 <TextView
                     android:id="@+id/button2"
@@ -85,7 +81,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:text="View All"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/magenta"
                     android:textSize="10sp" />
 
                 <TextView
@@ -95,6 +91,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Users"
+                    android:textColor="@color/purple"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -115,7 +112,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="View All"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/magenta"
                     android:textSize="10sp" />
 
             </LinearLayout>

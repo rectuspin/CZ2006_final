@@ -100,6 +100,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="28dp"
                 android:text="Facility Name"
+                android:textColor="@color/black"
                 android:textSize="34sp"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

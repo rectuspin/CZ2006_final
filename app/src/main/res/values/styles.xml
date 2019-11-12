@@ -15,6 +15,7 @@
 
     <style name="DatePicker" parent="android:Widget.Material.Light.DatePicker">
         <item name="android:datePickerMode">spinner</item>
+        <item name="colorAccent">@color/purple</item>
     </style>
 
     <style name="TimePicker" parent="android:Widget.Material.Light.TimePicker">
