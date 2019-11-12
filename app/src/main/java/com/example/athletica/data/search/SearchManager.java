@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.user.DataManager;
+import com.example.athletica.ui.profile.ViewProfileActivity;
 import com.example.athletica.ui.search.SearchResultActivity;
 import java.util.ArrayList;
 import java.util.Map;
@@ -46,6 +47,33 @@ public class SearchManager {
     }
 
 
+    public void getEvents(final ViewProfileActivity viewProfileActivity, String userId) {
+        dataManager.getEventKeys(new DataManager.DataStatus() {
+            @Override
+            public void dataLoaded(Object object) {
+                eventMap = ((ArrayList<Map>) object);
+                filter.endEventCheck(eventMap);
+
+                dataManager.getUserEvents(new DataManager.DataStatus() {
+                    @Override
+                    public void dataLoaded(Object object) {
+                        ArrayList<String> userEvents = (ArrayList<String>) object;
+                        for (Map<String, String> map : eventMap) {
+                            String str1 = map.get("key");
+                            if(userEvents.contains(str1)) {
+                                String str2 = map.get("name");
+                                eventIds.add(str1);
+                                eventsName.add(str2);
+                            }
+                        }
+                        viewProfileActivity.init_ListView(eventsName, eventIds);
+                    }
+                }, userId);
+
+            }
+        }, value);
+    }
+
     public void getEvents(final SearchResultActivity searchResultActivity) {
         dataManager.getEventKeys(new DataManager.DataStatus() {
             @Override
@@ -61,7 +89,6 @@ public class SearchManager {
                 searchResultActivity.init_ListView(eventsName, eventIds, 1);
             }
         }, value);
-
     }
 
 

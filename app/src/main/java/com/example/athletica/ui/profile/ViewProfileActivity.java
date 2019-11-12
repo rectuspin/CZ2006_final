@@ -1,28 +1,51 @@
 package com.example.athletica.ui.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
 import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.data.profile.ProfileManager;
+import com.example.athletica.data.search.SearchManager;
 import com.example.athletica.data.user.DataManager;
 import com.example.athletica.data.user.UserProfile;
+import com.example.athletica.ui.event.ViewEventActivity;
+import com.example.athletica.ui.search.SearchResultActivity;
+import com.example.athletica.data.DisplayAll.DisplayController;
+import com.example.athletica.ui.search.Layout_mainpage;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 public class ViewProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvName, tvGenderAge, tvBio, tvInterests, tvFollowers, tvUpComing;
-    ExtendedFloatingActionButton btnEdit;
-    //Button tvFollow;
+
+    TextView tvName, tvGenderAge, tvBio, tvInterests, tvFollowers, tvComingUp;
+    ExtendedFloatingActionButton btnFollowUpdate;
+    ListView rvComingUp;
+
+
+    //TextView tvName, tvGenderAge, tvBio, tvInterests, tvFollowers, tvUpComing;
+    //ExtendedFloatingActionButton btnFollowUpdate;
+
 
     private DataManager dataManager;
     private ProfileManager profileManager;
@@ -30,6 +53,11 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
     private String index;
     private UserProfile selectedProfile;
     private UserProfile currentProfile;
+    private DisplayController displayController;
+
+    private Intent intent;
+    private SearchManager searchManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +69,12 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         tvBio = findViewById(R.id.tvBio);
         tvInterests = findViewById(R.id.tvInterests);
         tvFollowers = findViewById(R.id.tvFollowers);
-        //tvFollow = findViewById(R.id.tvFollow);
-        btnEdit = findViewById(R.id.action_edit);
+
+
+        rvComingUp = findViewById(R.id.rvComingUp);
+        //tvComingUp = findViewById(R.id.tvComingUp);
+
+        btnFollowUpdate = findViewById(R.id.action_edit);
 
         index = getIntent().getStringExtra("key");
 
@@ -52,10 +84,21 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         dataManager = new DataManager();
         loginRegisterManager = new LoginRegisterManager();
         profileManager = new ProfileManager(getApplicationContext());
+        intent = getIntent();
+        searchManager = new SearchManager(this, "");
         getDetails();
 
-        btnEdit.setOnClickListener(this);
+        btnFollowUpdate.setOnClickListener(this);
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        this.recreate();
+
+        btnFollowUpdate.setOnClickListener(this);
+    }
+
 
     private void getDetails() {
         dataManager.getProfileByKey(new DataManager.DataStatus() {
@@ -70,13 +113,12 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
 
     private void populate(UserProfile profile) {
         if (!index.equals(LoginRegisterManager.loggedUser.getId())) {
-            btnEdit.setIcon(null);
-            btnEdit.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_24px, 0, 0, 0);
+            btnFollowUpdate.setIcon(null);
+            btnFollowUpdate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_24px, 0, 0, 0);
             setFollowButton(profile.getId());
-            //btnEdit.setText("Follow");
         }
         tvName.setText(profile.getName());
-        tvGenderAge.setText(profile.getGender());
+        tvGenderAge.setText(profile.getGender() + ", " + calculateAge(profile.getBirthdate()));
         tvBio.setText(profile.getDescription());
         tvFollowers.setText(profile.getFollowers());
         if (tvFollowers.getText().equals(""))
@@ -87,6 +129,31 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
             allInterests += nextInterest + "\n";
         }
         tvInterests.setText(allInterests);
+
+        System.out.println(profile.getId());
+        searchManager.getEvents(this, profile.getId());
+    }
+
+
+    private int calculateAge(String dob) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar birthday = Calendar.getInstance();
+        try {
+            birthday.setTime(simpleDateFormat.parse(dob));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        Calendar now = Calendar.getInstance();
+        int age = now.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+        if (birthday.get(Calendar.MONTH) > now.get(Calendar.MONTH))
+            age--;
+        else if (birthday.get(Calendar.MONTH) == now.get(Calendar.MONTH))
+        {
+            if (birthday.get(Calendar.DAY_OF_MONTH) > now.get(Calendar.DAY_OF_MONTH))
+                age--;
+        }
+        return age;
     }
 
     private void setFollowButton(final String selectedUId) {
@@ -98,9 +165,9 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
 
                 for (String nextFollow : currentProfile.getFollows()) {
                     if (nextFollow.equals(selectedUId))
-                        btnEdit.setText("UNFOLLOW");
+                        btnFollowUpdate.setText("UNFOLLOW");
                     else
-                        btnEdit.setText("FOLLOW");
+                        btnFollowUpdate.setText("FOLLOW");
 
                 }
             }
@@ -112,7 +179,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         String id = selectedProfile.getId();
         String newFollowers;
 
-        if (btnEdit.getText().equals("FOLLOW")) {
+        if (btnFollowUpdate.getText().equals("FOLLOW")) {
             newFollows.add(selectedProfile.getId());
             if (selectedProfile.getFollowers() != null) {
                 newFollowers = String.valueOf(Integer.parseInt(selectedProfile.getFollowers()) + 1);
@@ -122,7 +189,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
 
             loginRegisterManager.follow(newFollows, id, newFollowers);
             tvFollowers.setText(String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) + 1));
-            btnEdit.setText("UNFOLLOW");
+            btnFollowUpdate.setText("UNFOLLOW");
         } else {
             for (int i = 0; i < newFollows.size(); i++) {
                 if (newFollows.get(i).equals(id)) {
@@ -133,7 +200,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
             newFollowers = String.valueOf(Integer.parseInt(selectedProfile.getFollowers()) - 1);
             loginRegisterManager.follow(newFollows, id, newFollowers);
             tvFollowers.setText(String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) - 1));
-            btnEdit.setText("FOLLOW");
+            btnFollowUpdate.setText("FOLLOW");
         }
 
     }
@@ -150,5 +217,25 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
             Toast.makeText(this, "Edit profile Selected)", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void init_ListView(ArrayList<String> names, final ArrayList<String> index) {
+        ArrayAdapter<String> arrayAdapter;
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+
+        if(names.isEmpty())
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+
+        rvComingUp.setAdapter(arrayAdapter);
+        rvComingUp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                intent = new Intent(ViewProfileActivity.this, ViewEventActivity.class);
+                intent.putExtra("key", index.get(i));
+                arrayAdapter.clear();
+                arrayAdapter.notifyDataSetChanged();
+                startActivity(intent);
+            }
+        });
     }
 }

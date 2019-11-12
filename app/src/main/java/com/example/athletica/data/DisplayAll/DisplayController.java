@@ -2,14 +2,29 @@ package com.example.athletica.data.DisplayAll;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.athletica.R;
+import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.data.facility.Facility;
+import com.example.athletica.data.profile.ProfileManager;
 import com.example.athletica.data.search.Filter;
 import com.example.athletica.data.user.DataManager;
+import com.example.athletica.data.user.User;
+import com.example.athletica.data.user.UserProfile;
 import com.example.athletica.ui.home.HomeActivity;
+import com.example.athletica.ui.profile.ViewProfileActivity;
 import com.example.athletica.ui.search.DisplayAll;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import android.app.Activity;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,7 +35,8 @@ public class DisplayController {
     Context context;
     DataManager dataManager;
     Filter filter;
-    private String value;
+    public static User user;
+    ProfileManager profileManager;
 
 
     private ArrayList<String> facilities = new ArrayList<>();
@@ -45,6 +61,7 @@ public class DisplayController {
         this.context = context;
         this.state = state;
         dataManager = new DataManager();
+        profileManager = new ProfileManager(context);
         filter = new Filter();
     }
 
@@ -77,6 +94,7 @@ public class DisplayController {
             }
         }, "");
     }
+
 
     public void getEvents(final HomeActivity homeActivity) {
         dataManager.getEventKeys(new DataManager.DataStatus() {

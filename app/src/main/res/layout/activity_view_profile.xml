@@ -112,6 +112,32 @@
                 app:layout_constraintStart_toStartOf="@+id/tvFollowersLabel"
                 app:layout_constraintTop_toBottomOf="@+id/tvFollowersLabel" />
 
+            <TextView
+                android:id="@+id/tvComingUpLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/coming_up_header"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tvFollowers"
+                app:layout_constraintTop_toBottomOf="@+id/tvFollowers" />
+
+            <ListView
+                android:id="@+id/rvComingUp"
+                android:layout_width="354dp"
+                android:layout_height="243dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@+id/tvComingUpLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvComingUpLabel" />
+
+            <TextView
+                android:id="@+id/tvComingUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@+id/tvComingUpLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvComingUpLabel" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
