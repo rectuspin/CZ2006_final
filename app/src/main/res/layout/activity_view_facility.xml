@@ -19,7 +19,7 @@
 
             <RatingBar
                 android:id="@+id/facility_rating_bar"
-                android:layout_width="247dp"
+                android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
