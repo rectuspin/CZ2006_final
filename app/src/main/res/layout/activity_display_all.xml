@@ -38,7 +38,7 @@
         android:layout_marginTop="24dp"
         android:text="TextView"
         android:textSize="20dp"
-        android:textColor="@color/purple"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/action_sort"
         app:layout_constraintHorizontal_bias="0.618"

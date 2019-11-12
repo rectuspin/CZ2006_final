@@ -31,7 +31,7 @@
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="Facilities"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -61,7 +61,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Events"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -91,7 +91,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Users"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

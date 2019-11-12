@@ -203,7 +203,10 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 ratingRatingBar.setRating(currentUserRating);
 //                currentRating.setText("Current rating of this facility is " + rat);
                 //ratingRatingBar.setRating(ratingAvg);
-                tvRating.setText(rat+"/5");
+                if(rat.equals("NaN"))
+                    tvRating.setText("NA");
+                else
+                    tvRating.setText(rat+"/5");
             }
 
             @Override

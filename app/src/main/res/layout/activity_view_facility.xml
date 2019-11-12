@@ -24,6 +24,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="88dp"
+                android:layout_marginTop="30dp"
                 android:numStars="5"
                 android:stepSize="0.5"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="40dp"
-                android:text="Rating"
+                android:text="Average Rating"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/website" />
