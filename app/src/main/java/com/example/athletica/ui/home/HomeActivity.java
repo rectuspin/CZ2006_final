@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, SearchResultActivity.class);
                 intent.putExtra("query", etSearch.getText().toString());
                 startActivity(intent);
-                finish();
+                //finish();
                 return true;
             }
         });
@@ -134,21 +134,21 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_create_event:
                         item.setChecked(false);
                         startActivity(new Intent(HomeActivity.this, CreateEventActivity.class));
-                        finish();
+                        //finish();
                         drawer.closeDrawers();
                         return true;
 
                     case R.id.nav_view_profile:
                         item.setChecked(false);
                         startActivity(new Intent(HomeActivity.this, ViewProfileActivity.class));
-                        finish();
+                        //finish();
                         drawer.closeDrawers();
                         return true;
 
                     case R.id.nav_settings:
                         item.setChecked(false);
                         startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
-                        finish();
+                        //finish();
                         drawer.closeDrawers();
                         return true;
 
