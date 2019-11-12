@@ -221,8 +221,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
     public void init_ListView(ArrayList<String> names, final ArrayList<String> index) {
         ArrayAdapter<String> arrayAdapter;
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
-
-        if(names.isEmpty())
+        
 
         rvComingUp.setAdapter(arrayAdapter);
         rvComingUp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
