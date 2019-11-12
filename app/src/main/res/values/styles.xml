@@ -21,5 +21,10 @@
         <item name="android:timePickerMode">spinner</item>
     </style>
 
+    <style name="MyEditTextStyle" parent="android:Widget.EditText">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@android:drawable/editbox_background_normal</item>
+    </style>
+
 
 </resources>

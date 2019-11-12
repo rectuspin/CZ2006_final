@@ -3,7 +3,10 @@ package com.example.athletica.ui.facility;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletica.R;
+import com.example.athletica.data.account.LoginRegisterManager;
 import com.example.athletica.data.facility.Comments;
 import com.example.athletica.data.facility.Facility;
 import com.example.athletica.data.facility.FacilityManager;
@@ -41,7 +45,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
     private String facilityIndex;
     private ImageView imageView, mapBtn;
     private RatingBar ratingRatingBar;
-    private TextView tvFacilityName, tvFacilityOffered, tvWebsiteLink, tvAddress;
+    private TextView tvFacilityName, tvFacilityOffered, tvWebsiteLink, tvAddress,tvRating;
     private int[] images;
     private Facility facility;
     private FacilityManager facilityManager;
@@ -67,15 +71,11 @@ public class ViewFacilityActivity extends AppCompatActivity {
         tvFacilityOffered = findViewById(R.id.facilities_offered);
         tvWebsiteLink = findViewById(R.id.website);
         tvAddress = findViewById(R.id.facility_address);
+        tvRating=findViewById(R.id.rating);
 
-
-        submitButton = findViewById(R.id.submit_button);
-        ratingDisplayTextView = findViewById(R.id.rating_display_text_View);
-        currentRating = findViewById(R.id.current_rating);
 
         listViewComments = findViewById(R.id.list_view_comment);
         addcomment = findViewById(R.id.add_comment);
-        sendComment = findViewById(R.id.send);
         commentsList = new ArrayList<>();
         ratingsList=new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
         tvAddress.setText(facility.getAddress(this));
         images = new int[]{R.raw.i0, R.raw.i1, R.raw.i2, R.raw.i3, R.raw.i4, R.raw.i5, R.raw.i6, R.raw.i7, R.raw.i8, R.raw.i9, R.raw.i10};
         imageView.setImageResource(images[Integer.parseInt(facilityIndex) % 11]);
-        mapBtn.setImageResource(R.drawable.mapicon);
+        mapBtn.setImageResource(R.drawable.mapiconnew);
 
 
         // Starts the MapsActivity with the facility's location data
@@ -112,28 +112,30 @@ public class ViewFacilityActivity extends AppCompatActivity {
         });
 
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+
+
+        ratingRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
             @Override
-            public void onClick(View v) {
-                //addRatings();
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 float submitted_rating = ratingRatingBar.getRating();
                 facilityManager.addRating(submitted_rating);
-//                ratingDisplayTextView.setText("Your rating is :" + submitted_rating);
-                ratingDisplayTextView.setText("Rating submitted!");
+                onStart();
             }
         });
 
-        //add comment
-        sendComment.setOnClickListener(new View.OnClickListener() {
+
+        addcomment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-
-
-                Boolean result = facilityManager.addComments(addcomment.getText().toString());
-                if (result)
-                    addcomment.setText("");
-                else
-                    Toast.makeText(ViewFacilityActivity.this, "Please type the content", Toast.LENGTH_SHORT);
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    Boolean result = facilityManager.addComments(addcomment.getText().toString());
+                    if(result)
+                        addcomment.setText("");
+                    handled = true;
+                }
+                return handled;
             }
         });
     }
@@ -149,7 +151,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
         rat.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ratingsList.clear();
+                //ratingsList.clear();
                 for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
                     Ratings rating = Snapshot.getValue(Ratings.class);
                    ratingsList.add(rating);
@@ -195,8 +197,10 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 }
                 ratingAvg = sum / numChild;
                 String rat = String.valueOf(ratingAvg);
+
 //                currentRating.setText("Current rating of this facility is " + rat);
-                ratingRatingBar.setRating(ratingAvg);
+                //ratingRatingBar.setRating(ratingAvg);
+                tvRating.setText(rat+"/5");
             }
 
             @Override
@@ -204,7 +208,6 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
 }
