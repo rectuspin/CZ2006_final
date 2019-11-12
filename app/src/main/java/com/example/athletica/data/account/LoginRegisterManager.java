@@ -215,6 +215,7 @@ public class LoginRegisterManager {
     }
 
     public void follow(ArrayList<String> follows, String userId, String followers) {
+        System.out.println("FOLLOW METHOD CALLED");
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users_info");
         databaseReference.child(userId).child("followers").setValue(followers);
         databaseReference.child(loggedUser.getId()).child("follows").setValue(follows);

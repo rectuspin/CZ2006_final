@@ -96,7 +96,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         super.onRestart();
         this.recreate();
 
-        btnFollowUpdate.setOnClickListener(this);
+        //btnFollowUpdate.setOnClickListener(this);
     }
 
 
@@ -175,29 +175,30 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void follow(View view) {
+        System.out.println("FOLLOW HAS BEEN CLICKED!!");
         ArrayList<String> newFollows = currentProfile.getFollows();
         String id = selectedProfile.getId();
         String newFollowers;
 
         if (btnFollowUpdate.getText().equals("FOLLOW")) {
             newFollows.add(selectedProfile.getId());
-            if (selectedProfile.getFollowers() != null) {
-                newFollowers = String.valueOf(Integer.parseInt(selectedProfile.getFollowers()) + 1);
-            } else {
+            if (selectedProfile.getFollowers() == null) {
                 newFollowers = "1";
+            } else {
+                newFollowers = String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) + 1);
             }
 
             loginRegisterManager.follow(newFollows, id, newFollowers);
             tvFollowers.setText(String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) + 1));
             btnFollowUpdate.setText("UNFOLLOW");
-        } else {
+        } else if (btnFollowUpdate.getText().equals("UNFOLLOW")){
             for (int i = 0; i < newFollows.size(); i++) {
                 if (newFollows.get(i).equals(id)) {
                     newFollows.remove(i);
                     break;
                 }
             }
-            newFollowers = String.valueOf(Integer.parseInt(selectedProfile.getFollowers()) - 1);
+            newFollowers = String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) - 1);
             loginRegisterManager.follow(newFollows, id, newFollowers);
             tvFollowers.setText(String.valueOf(Integer.parseInt(tvFollowers.getText().toString()) - 1));
             btnFollowUpdate.setText("FOLLOW");
