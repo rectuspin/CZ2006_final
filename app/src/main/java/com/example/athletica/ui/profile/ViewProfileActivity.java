@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -216,7 +215,6 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         } else {
             Intent intent = new Intent(getApplicationContext(), CreateProfileActivity.class);
             startActivity(intent);
-            Toast.makeText(this, "Edit profile Selected)", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -225,7 +223,6 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
 
         if(names.isEmpty())
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
 
         rvComingUp.setAdapter(arrayAdapter);
         rvComingUp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
