@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class RegisterFragment extends CustomFragment implements View.OnClickList
     private LoginRegisterManager loginRegisterManager;
     private EditText etEmail, etPassword, etConfrimPassword;
     private Button btnRegister;
+    private ImageView logo;
 
 
     @Nullable
@@ -34,7 +36,8 @@ public class RegisterFragment extends CustomFragment implements View.OnClickList
         etPassword = view.findViewById(R.id.etPassword);
         etConfrimPassword = view.findViewById(R.id.etConfirmPassword);
         btnRegister = view.findViewById(R.id.action_register);
-
+        logo=view.findViewById(R.id.logoImageView);
+        logo.setImageResource(R.drawable.logoimage);
         networkCheck();
 
         return view;

@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class DisplayAll extends AppCompatActivity {
     private DisplayController displayController;
     private ArrayList<Facility> facilities, sortedFacilties;
     private ImageButton btnSort;
+    private TextView Title;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -40,11 +42,13 @@ public class DisplayAll extends AppCompatActivity {
         dataManager = new DataManager();
         displayController = new DisplayController(this, state);
         btnSort = findViewById(R.id.action_sort);
+        Title=findViewById(R.id.DisplayAllTitle);
 
 
-        if (state == 0) displayController.getFacilities(this);
-        else if (state == 1) displayController.getEvents(this);
-        else displayController.getUsers(this);
+        if (state == 0) {
+            Title.setText("Facilities");displayController.getFacilities(this);}
+        else if (state == 1){ Title.setText("Events"); displayController.getEvents(this);}
+        else{Title.setText("Users"); displayController.getUsers(this);}
 
 
         sortedFacilties = displayController.sortFacilityByName();

@@ -31,7 +31,6 @@
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="Facilities"
-                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -42,12 +41,6 @@
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp" />
 
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/rvFacility"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="10dp"-->
-                <!--                    android:orientation="horizontal" />-->
 
                 <TextView
                     android:id="@+id/button1"
@@ -67,7 +60,6 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Events"
-                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -103,7 +95,6 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Users"
-                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -114,11 +105,6 @@
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"></ListView>
 
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/rvUsers"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="10dp" />-->
 
                 <TextView
                     android:id="@+id/button3"

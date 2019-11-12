@@ -27,6 +27,10 @@ public class LoginFragment extends CustomFragment implements View.OnClickListene
     private ImageView logo;
 
 
+
+    
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
