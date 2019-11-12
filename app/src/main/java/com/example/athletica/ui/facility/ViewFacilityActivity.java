@@ -114,13 +114,14 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
 
 
+
         ratingRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 float submitted_rating = ratingRatingBar.getRating();
                 facilityManager.addRating(submitted_rating);
-                onStart();
+                //onStart();
             }
         });
 
@@ -212,4 +213,4 @@ public class ViewFacilityActivity extends AppCompatActivity {
         });
     }
 
-}
+  }
