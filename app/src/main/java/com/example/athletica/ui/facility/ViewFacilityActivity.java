@@ -154,6 +154,7 @@ public class ViewFacilityActivity extends AppCompatActivity {
                 //ratingsList.clear();
                 for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
                     Ratings rating = Snapshot.getValue(Ratings.class);
+
                    ratingsList.add(rating);
                 }
             }
@@ -188,16 +189,17 @@ public class ViewFacilityActivity extends AppCompatActivity {
 
                 float sum = 0;
                 long numChild = 0;
-
+                float currentUserRating=0;
                 for (DataSnapshot ratingsSnapshot : dataSnapshot.getChildren()) {
                     Ratings rating = ratingsSnapshot.getValue(Ratings.class);
                     sum += rating.getRatingContent();
                     numChild = dataSnapshot.getChildrenCount();
-
+                    if((rating.getUserID()).equals(facility.getUserid()))
+                        currentUserRating=rating.getRatingContent();
                 }
                 ratingAvg = sum / numChild;
                 String rat = String.valueOf(ratingAvg);
-
+                ratingRatingBar.setRating(currentUserRating);
 //                currentRating.setText("Current rating of this facility is " + rat);
                 //ratingRatingBar.setRating(ratingAvg);
                 tvRating.setText(rat+"/5");
